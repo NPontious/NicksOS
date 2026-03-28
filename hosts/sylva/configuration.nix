@@ -22,6 +22,7 @@
     ];
     myAppSets.development.enable = true;
     myAppSets.media.enable = true;
+    myAppSets.games.enable = true;
   };
   
   system.stateVersion = "25.11"; 
