@@ -10,7 +10,6 @@
     port = 2283;
     mediaLocation = "/mnt/storage/Pictures/immich";
     host = "0.0.0.0";
-    database.passwordFile = config.age.secrets."postgres-password".path;
     #openFirewall = true;
     package = pkgs.immich;
   };

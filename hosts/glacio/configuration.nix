@@ -74,7 +74,7 @@
       ../../modules/home-manager-common.nix
     ];
     myAppSets.development.enable = true;
-    myAppSets.emulation.enable = true;
+    myAppSets.games.enable = true;
     myAppSets.media.enable = true;
   };
 
