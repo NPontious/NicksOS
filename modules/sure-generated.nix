@@ -18,7 +18,7 @@
       "POSTGRES_USER" = "sure_user";
     };
     environmentFiles = [
-      config.age.secrets."postgres-password".path
+      "/var/lib/sure/sure-db-secrets"
     ];
     volumes = [
       "sure_postgres-data:/var/lib/postgresql/data:rw"
@@ -40,6 +40,16 @@
       RestartSec = lib.mkOverride 90 "100ms";
       RestartSteps = lib.mkOverride 90 9;
     };
+    preStart = ''
+      mkdir -p /var/lib/sure
+      VAL=$(cat ${config.age.secrets."postgres-password".path})
+      # Ensure it's in the format POSTGRES_PASSWORD=...
+      if [[ "$VAL" == *"="* ]]; then
+        echo "$VAL" > /var/lib/sure/sure-db-secrets
+      else
+        echo "POSTGRES_PASSWORD=$VAL" > /var/lib/sure/sure-db-secrets
+      fi
+    '';
     after = [
       "docker-network-sure_sure_net.service"
       "docker-volume-sure_postgres-data.service"
@@ -62,7 +72,7 @@
     ];
     log-driver = "journald";
     extraOptions = [
-      "--health-cmd=[\"redis-cli\", \"ping\"]"
+      "--health-cmd=redis-cli ping"
       "--health-interval=5s"
       "--health-retries=5"
       "--health-timeout=5s"
@@ -108,6 +118,8 @@
     };
     environmentFiles = [
       config.age.secrets."sure-env".path
+      "/var/lib/sure/sure-db-secrets"
+      "/var/lib/sure/sure-web-secrets"
     ];
     volumes = [
       "sure_app-storage:/rails/storage:rw"
@@ -135,6 +147,11 @@
       RestartSec = lib.mkOverride 90 "100ms";
       RestartSteps = lib.mkOverride 90 9;
     };
+    preStart = ''
+      mkdir -p /var/lib/sure
+      VAL=$(cat ${config.age.secrets."secret-key-base".path})
+      echo "SECRET_KEY_BASE=$VAL" > /var/lib/sure/sure-web-secrets
+    '';
     after = [
       "docker-network-sure_sure_net.service"
       "docker-volume-sure_app-storage.service"
@@ -166,6 +183,8 @@
     };
     environmentFiles = [
       config.age.secrets."sure-env".path
+      "/var/lib/sure/sure-db-secrets"
+      "/var/lib/sure/sure-web-secrets"
     ];
     volumes = [
       "sure_app-storage:/rails/storage:rw"
@@ -191,6 +210,11 @@
       RestartSec = lib.mkOverride 90 "100ms";
       RestartSteps = lib.mkOverride 90 9;
     };
+    preStart = ''
+      mkdir -p /var/lib/sure
+      VAL=$(cat ${config.age.secrets."secret-key-base".path})
+      echo "SECRET_KEY_BASE=$VAL" > /var/lib/sure/sure-web-secrets
+    '';
     after = [
       "docker-network-sure_sure_net.service"
       "docker-volume-sure_app-storage.service"
