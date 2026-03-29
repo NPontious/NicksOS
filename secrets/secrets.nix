@@ -3,8 +3,8 @@ let
   
   glacio_host = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDASAHScag9TBoXy0oZKTR67BykcH5g5HTrqLsbABLnl root@glacio";
   vesania_host = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOQmu30vMqi1V8v8iUk3/EF6r8+l+ujSruqq+At7j3oj root@vesania";
-  sylva_host = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAm0uYEByEBtVwiP6HWM2JT9enlmjuUiIiFsxmejWgtH root@sylva";
-
+  sylva_host = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIRCPnQbSa4jI5DKVzIc6c1EvlPJN4UjC1dZlvL/hM8X root@sylva";
+  
   admins = [ nicho_vesania glacio_host vesania_host sylva_host ];
   systems = [ glacio_host vesania_host sylva_host ];
 
