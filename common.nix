@@ -24,6 +24,11 @@
 
   nixpkgs.config.allowUnfree = true;
 
+  environment.shellAliases = {
+    config = "sudo nano /etc/nixos/hosts/${config.networking.hostName}/configuration.nix";
+    build = "sudo nixos-rebuild switch --flake '/etc/nixos#${config.networking.hostName}'";
+  };
+
   programs.fish.enable = true;
   users.users.nicho = {
     isNormalUser = true;
