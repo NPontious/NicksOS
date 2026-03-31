@@ -10,6 +10,12 @@
   
   networking.hostName = "sylva";
 
+  nixpkgs.overlays = [
+    (final: prev: {
+      btop = prev.btop.override { cudaSupport = true; };
+    })
+  ];
+
   services.blueman.enable = true;
   services.displayManager.ly.enable = true;
 
