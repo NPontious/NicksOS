@@ -23,6 +23,10 @@
 
   services.blueman.enable = true;
 
+  environment.variables = {
+    HSA_OVERRIDE_GFX_VERSION = "11.0.0";
+  };
+
   fileSystems."/mnt/smbshare" = {
    device = "//192.168.1.101/Share";
    fsType = "cifs";
@@ -56,10 +60,18 @@
   };
 
   nixpkgs.config.allowUnfree = true;
-  environment.systemPackages = with pkgs; [ kitty tree git net-tools swww steam-rom-manager openssl cifs-utils google-chrome (btop.override { rocmSupport = true; }) kdePackages.dolphin cemu ryubing dolphin-emu atlauncher waydroid heroic gamemode mangohud mangojuice rocmPackages.rocm-smi smartmontools appimage-run btrfs-progs ];
+  environment.systemPackages = with pkgs; [ 
+    kitty tree git net-tools swww steam-rom-manager openssl 
+    cifs-utils google-chrome kdePackages.dolphin 
+    cemu ryubing dolphin-emu atlauncher waydroid heroic 
+    gamemode mangohud mangojuice rocmPackages.rocm-smi 
+    smartmontools appimage-run btrfs-progs 
+  ];
 
   nixpkgs.overlays = [
     (final: prev: {
+      btop = prev.btop.override { rocmSupport = true; };
+
       inputplumber = prev.inputplumber.overrideAttrs (old: {
         nativeBuildInputs = (old.nativeBuildInputs or []) ++ [ final.nix-prefetch-git ];
       });

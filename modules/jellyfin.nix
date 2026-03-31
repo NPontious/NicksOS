@@ -3,6 +3,6 @@
 {
   services.jellyfin = {
     enable = true;
-    openFirewall = false;
+    openFirewall = true;
   };
 }
