@@ -25,7 +25,7 @@ in
     })
 
     (lib.mkIf cfg.media.enable {
-      home.packages = with pkgs; [ google-chrome kdePackages.dolphin kdePackages.konsole kdePackages.filelight packagekit vesktop blender inkscape xournalpp libreoffice-fresh ];
+      home.packages = with pkgs; [ google-chrome kdePackages.dolphin kdePackages.konsole kdePackages.filelight packagekit vesktop blender inkscape xournalpp libreoffice-fresh libqalculate ];
     })
   ];
 }
