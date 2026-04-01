@@ -42,12 +42,19 @@
     };
     preStart = ''
       mkdir -p /var/lib/sure
-      VAL=$(cat ${config.age.secrets."postgres-password".path})
-      # Ensure it's in the format POSTGRES_PASSWORD=...
-      if [[ "$VAL" == *"="* ]]; then
-        echo "$VAL" > /var/lib/sure/sure-db-secrets
+      VAL=$(cat ${config.age.secrets."postgres-password".path} | tr -d '\n')
+      if [ -z "$VAL" ]; then
+        if [ ! -f /var/lib/sure/sure-db-secrets ] || ! grep -q "POSTGRES_PASSWORD=." /var/lib/sure/sure-db-secrets; then
+          VAL=$(${pkgs.openssl}/bin/openssl rand -hex 32)
+          echo "POSTGRES_PASSWORD=$VAL" > /var/lib/sure/sure-db-secrets
+        fi
       else
-        echo "POSTGRES_PASSWORD=$VAL" > /var/lib/sure/sure-db-secrets
+        # Ensure it's in the format POSTGRES_PASSWORD=...
+        if [[ "$VAL" == *"="* ]]; then
+          echo "$VAL" > /var/lib/sure/sure-db-secrets
+        else
+          echo "POSTGRES_PASSWORD=$VAL" > /var/lib/sure/sure-db-secrets
+        fi
       fi
     '';
     after = [
@@ -149,8 +156,15 @@
     };
     preStart = ''
       mkdir -p /var/lib/sure
-      VAL=$(cat ${config.age.secrets."secret-key-base".path})
-      echo "SECRET_KEY_BASE=$VAL" > /var/lib/sure/sure-web-secrets
+      VAL=$(cat ${config.age.secrets."secret-key-base".path} | tr -d '\n')
+      if [ -z "$VAL" ]; then
+        if [ ! -f /var/lib/sure/sure-web-secrets ] || ! grep -q "SECRET_KEY_BASE=." /var/lib/sure/sure-web-secrets; then
+          VAL=$(${pkgs.openssl}/bin/openssl rand -hex 64)
+          echo "SECRET_KEY_BASE=$VAL" > /var/lib/sure/sure-web-secrets
+        fi
+      else
+        echo "SECRET_KEY_BASE=$VAL" > /var/lib/sure/sure-web-secrets
+      fi
     '';
     after = [
       "docker-network-sure_sure_net.service"
@@ -212,8 +226,15 @@
     };
     preStart = ''
       mkdir -p /var/lib/sure
-      VAL=$(cat ${config.age.secrets."secret-key-base".path})
-      echo "SECRET_KEY_BASE=$VAL" > /var/lib/sure/sure-web-secrets
+      VAL=$(cat ${config.age.secrets."secret-key-base".path} | tr -d '\n')
+      if [ -z "$VAL" ]; then
+        if [ ! -f /var/lib/sure/sure-web-secrets ] || ! grep -q "SECRET_KEY_BASE=." /var/lib/sure/sure-web-secrets; then
+          VAL=$(${pkgs.openssl}/bin/openssl rand -hex 64)
+          echo "SECRET_KEY_BASE=$VAL" > /var/lib/sure/sure-web-secrets
+        fi
+      else
+        echo "SECRET_KEY_BASE=$VAL" > /var/lib/sure/sure-web-secrets
+      fi
     '';
     after = [
       "docker-network-sure_sure_net.service"

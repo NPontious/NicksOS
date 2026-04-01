@@ -1,0 +1,16 @@
+# Nix/NixOS results
+result
+result-*
+
+# Direnv
+.direnv/
+
+# Editor/Temp files
+*.swp
+*~
+.DS_Store
+
+# Potential secrets (unencrypted)
+.env
+*.decrypted
+*.age.dec

@@ -13,6 +13,7 @@
     rocmOverrideGfx = "11.0.0";
     #openFirewall = true;
     loadModels = [
+      "llama3.1:8b"
       "llama3.2"
       "gemma3"
       "qwen3.5:4b"

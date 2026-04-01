@@ -12,6 +12,7 @@
     ./networking.nix
     ../../modules/sure-generated.nix
     ../../modules/arr.nix
+    ../../modules/ollama.nix
   ];
 
   systemd.targets.sleep.enable = false;
