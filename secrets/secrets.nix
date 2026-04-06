@@ -6,8 +6,8 @@ let
   sylva_host = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBn2c/9xEqfTocaT2HfIAjEKYgJytv/dUq5Kr9TDdhCv root@sylva";
   desolo_host = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINhXX59EL8xxxnMQkaPYD+J1s70JXiAPFqBlPSNsFYDJ root@nixos";
   
-  admins = [ nicho_vesania glacio_host vesania_host sylva_host ];
-  systems = [ glacio_host vesania_host sylva_host ];
+  admins = [ nicho_vesania glacio_host vesania_host sylva_host desolo_host ];
+  systems = [ glacio_host vesania_host sylva_host desolo_host ];
 
   all = admins ++ systems;
 in
