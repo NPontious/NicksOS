@@ -52,6 +52,17 @@
           agenix.nixosModules.default
         ];
       };
+      
+      desolo = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = { inherit illogical-flake agenix; };
+        modules = [
+          ./hosts/desolo/hardware-configuration.nix
+          ./hosts/desolo/configuration.nix
+          home-manager.nixosModules.home-manager
+          agenix.nixosModules.default
+        ];
+      };
     };
   };
 }
