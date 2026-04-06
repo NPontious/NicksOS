@@ -11,6 +11,7 @@
   networking.hostName = "desolo";
 
   services.hardware.bolt.enable = true;
+  boot.initrd.availableKernelModules = [ "thunderbolt" "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
 
   mySystem.illogical.enableShell = true;
   mySystem.illogical.enableDesktop = false;
