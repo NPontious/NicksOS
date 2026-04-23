@@ -8,6 +8,8 @@
     ../../common.nix
   ];
   
+  virtualisation.docker.enable = true;
+
   services.hardware.bolt.enable = true;
   boot.initrd.availableKernelModules = [ "thunderbolt" "xhci_pci" "nvme" "usb_storage" "sd_mod" ];
 

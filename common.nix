@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, agenix, ... }:
 
 {
   imports = [
@@ -33,11 +33,12 @@
   users.users.nicho = {
     isNormalUser = true;
     description = "nicho";
-    extraGroups = [ "networkmanager" "wheel" "video" "input" "render" ];
+    extraGroups = [ "networkmanager" "wheel" "video" "input" "render" "docker" ];
     shell = pkgs.fish;
   };
 
   environment.systemPackages = with pkgs; [ 
     kitty tree git net-tools wget curl btop
+    agenix.packages.${pkgs.system}.default
   ];
 }

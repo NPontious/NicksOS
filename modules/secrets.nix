@@ -26,5 +26,9 @@
       file = ../secrets/paperless-password.age;
       mode = "0444";
     };
+    "windscribe-creds" = {
+      file = ../secrets/windscribe-creds.age;
+      mode = "0444";
+    };
   };
 }

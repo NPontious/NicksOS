@@ -13,7 +13,7 @@ in
 
   config = lib.mkMerge [
     (lib.mkIf cfg.development.enable {
-      home.packages = with pkgs; [ git gh vscode gcc gnumake godot_4 typst tinymist ];
+      home.packages = with pkgs; [ git gh vscode gcc gnumake godot_4 typst tinymist docker docker-compose ];
     })
 
     (lib.mkIf cfg.school.enable {

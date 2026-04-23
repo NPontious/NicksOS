@@ -19,4 +19,5 @@ in
   "sure-env.age".publicKeys = all;
   "paperless-password.age".publicKeys = all;
   "test-secret.age".publicKeys = all;
+  "windscribe-creds.age".publicKeys = all;
 }
