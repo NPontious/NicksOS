@@ -39,8 +39,8 @@ in
         imports = [ illogical-flake.homeManagerModules.default ];
         programs.illogical-impulse.enable = true;
         home.stateVersion = "24.05";
-
-        xdg.configFile."dolphinrc".enable = false;
+        home.file.".config/dolphinrc".enable = lib.mkForce false;  
+        home.file.".config/konsolerc".enable = lib.mkForce false;  
       };
     })
 

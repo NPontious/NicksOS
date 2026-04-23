@@ -10,12 +10,16 @@
   ];
   
   networking.hostName = "sylva";
+  networking.firewall.allowedTCPPorts = [ 6567 ];
+  networking.firewall.allowedUDPPorts = [ 6567 ];
 
   nixpkgs.overlays = [
     (final: prev: {
       btop = prev.btop.override { cudaSupport = true; };
     })
   ];
+
+  services.flatpak.enable = true;
 
   services.blueman.enable = true;
   services.displayManager.ly.enable = true;
@@ -29,15 +33,15 @@
   };
 
   fileSystems."/mnt/GameDrive" = {
-    device = "/dev/disk/by-uuid/3EBE91B1BE916267";
-    fsType = "ntfs3";
-    options = [ "rw" "uid=1000" "gid=100" "nofail" "x-gvfs-show" "exec" "windows_names" ];
+    device = "/dev/disk/by-uuid/1e2e4891-ddb0-4008-9643-b2ff27394f22";
+    fsType = "ext4";
+    options = [ "rw" "nofail" "x-gvfs-show" "exec" ];
   };
 
   fileSystems."/mnt/Emulation" = {
     device = "/dev/disk/by-uuid/6498762D9875FE3C";
     fsType = "ntfs3";
-    options = [ "rw" "uid=1000" "gid=100" "nofail" "x-gvfs-show" "exec" "windows_names" ];
+    options = [ "rw" "nofail" "x-gvfs-show" "exec" ];
   };
 
   mySystem.illogical.enableShell = true;

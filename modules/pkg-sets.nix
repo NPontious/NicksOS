@@ -21,7 +21,7 @@ in
     })
 
     (lib.mkIf cfg.games.enable {
-      home.packages = with pkgs; [ cemu dolphin-emu ryubing steam ];
+      home.packages = with pkgs; [ cemu dolphin-emu ryubing steam wine-wayland ];
     })
 
     (lib.mkIf cfg.media.enable {
