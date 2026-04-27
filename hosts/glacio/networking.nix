@@ -23,6 +23,7 @@
 
   services.dnsmasq = {
     enable = true;
+    resolveLocalQueries = false;
 
     settings = {
       interface = "enp4s0";
