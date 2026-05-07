@@ -10,8 +10,8 @@
   ];
   
   networking.hostName = "sylva";
-  networking.firewall.allowedTCPPorts = [ 6567 ];
-  networking.firewall.allowedUDPPorts = [ 6567 ];
+  networking.firewall.allowedTCPPorts = [ 6567 28016 28083 ];
+  networking.firewall.allowedUDPPorts = [ 6567 28015 ];
 
   nixpkgs.overlays = [
     (final: prev: {
