@@ -67,7 +67,7 @@ in
 
         wayland.windowManager.hyprland.settings = {
           exec-once = [ "kitty" "hyprctl setcursor Bibata-Modern-Ice 24" ];
-          monitor = [ ",preferred,auto,1" ];
+          monitor = [ ",highrr,auto,1" ];
           env = [ "XCURSOR_THEME,Bibata-Modern-Ice" "XCURSOR_SIZE,24" ];
           misc = {
             vrr = 0;                  
@@ -75,6 +75,24 @@ in
             disable_splash_rendering = true;
           };
         };
+
+        xdg.configFile."hypr/hyprland/general.conf".text = lib.mkForce (
+          let
+            # We want to patch the same file illogical-flake patches
+            # Since we can't easily get its internal dotfiles source, we replicate its logic
+            # but add our own patch.
+            dotfilesSource = illogical-flake.inputs.dotfiles;
+            originalText = builtins.readFile "${dotfilesSource}/dots/.config/hypr/hyprland/general.conf";
+          in
+          builtins.replaceStrings
+            [ "enable_gesture = false" "gesture_positive = false" "gesture_distance = 300" ]
+            [ 
+              "# enable_gesture = false # Removed: obsolete hyprexpo option" 
+              "# gesture_positive = false # Removed: obsolete hyprexpo option" 
+              "# gesture_distance = 300 # Removed: obsolete hyprexpo option"
+            ]
+            originalText
+        );
       };
     })
   ];
