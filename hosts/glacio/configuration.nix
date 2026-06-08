@@ -51,7 +51,7 @@
     kitty tree git net-tools swww steam-rom-manager openssl 
     google-chrome kdePackages.dolphin 
     cemu ryubing dolphin-emu atlauncher waydroid heroic 
-    gamemode mangohud mangojuice rocmPackages.rocm-smi 
+    mangohud mangojuice rocmPackages.rocm-smi 
     cifs-utils 
     smartmontools appimage-run btrfs-progs 
   ];

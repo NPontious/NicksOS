@@ -56,6 +56,18 @@ in
     (lib.mkIf cfg.gaming.enable {
       programs.steam.enable = true;
       programs.gamemode.enable = true;
+
+      security.polkit.extraConfig = ''
+        polkit.addRule(function(action, subject) {
+          if ((action.id == "com.feralinteractive.GameMode.governor-helper" ||
+               action.id == "com.feralinteractive.GameMode.gpu-helper" ||
+               action.id == "com.feralinteractive.GameMode.cpu-helper" ||
+               action.id == "com.feralinteractive.GameMode.procsys-helper") &&
+              subject.isInGroup("gamemode")) {
+            return polkit.Result.YES;
+          }
+        });
+      '';
     })
 
     (lib.mkIf cfg.development.enable {

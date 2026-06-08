@@ -34,7 +34,7 @@
   users.users.nicho = {
     isNormalUser = true;
     description = "nicho";
-    extraGroups = [ "networkmanager" "wheel" "video" "input" "render" "docker" ];
+    extraGroups = [ "networkmanager" "wheel" "video" "input" "render" "docker" "gamemode" ];
     shell = pkgs.fish;
   };
 
