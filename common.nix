@@ -3,6 +3,7 @@
 {
   imports = [
     ./modules/secrets.nix
+    ./modules/pkg-sets.nix
   ];
 
   time.timeZone = "America/New_York";
@@ -38,7 +39,7 @@
   };
 
   environment.systemPackages = with pkgs; [ 
-    kitty tree git net-tools wget curl btop
+    kitty tree git net-tools wget curl
     agenix.packages.${pkgs.system}.default
   ];
 }

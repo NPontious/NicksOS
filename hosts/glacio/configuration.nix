@@ -52,6 +52,7 @@
     google-chrome kdePackages.dolphin 
     cemu ryubing dolphin-emu atlauncher waydroid heroic 
     gamemode mangohud mangojuice rocmPackages.rocm-smi 
+    cifs-utils 
     smartmontools appimage-run btrfs-progs 
   ];
 
@@ -68,13 +69,15 @@
   mySystem.illogical.enableShell = true;
   mySystem.illogical.enableDesktop = true;
 
+  myAppSets = {
+    profile = "gaming";
+    development.enable = true;
+  };
+
   home-manager.users.nicho = {
     imports = [
       ../../modules/home-manager-common.nix
     ];
-    myAppSets.development.enable = true;
-    myAppSets.games.enable = true;
-    myAppSets.media.enable = true;
   };
 
   system.stateVersion = "25.11"; 

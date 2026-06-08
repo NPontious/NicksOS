@@ -1,14 +1,15 @@
 { config, pkgs, illogical-flake, lib, ... }:
 
 {
-  imports = [ 
+  imports = [
     ./hardware-configuration.nix
     ../../modules/tailscale.nix
     ../../modules/illogical.nix
     ../../modules/nvidia.nix
+    ../../modules/flatpak.nix
     ../../common.nix
   ];
-  
+
   networking.hostName = "sylva";
 
   nixpkgs.overlays = [
@@ -16,8 +17,6 @@
       btop = prev.btop.override { cudaSupport = true; };
     })
   ];
-
-  services.flatpak.enable = true;
 
   services.blueman.enable = true;
   services.displayManager.ly.enable = true;
@@ -45,14 +44,18 @@
   mySystem.illogical.enableShell = true;
   mySystem.illogical.enableDesktop = true;
 
+  myAppSets = {
+    profile = "gaming";
+    development.enable = true;
+    school.enable = true;
+    productivity.enable = true;
+    creativity.enable = true;
+  };
+
   home-manager.users.nicho = {
     imports = [
       ../../modules/home-manager-common.nix
     ];
-    myAppSets.development.enable = true;
-    myAppSets.media.enable = true;
-    myAppSets.games.enable = true;
-    myAppSets.school.enable = true;
   };
   
   system.stateVersion = "25.11"; 

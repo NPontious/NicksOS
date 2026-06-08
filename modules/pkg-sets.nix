@@ -2,30 +2,104 @@
 
 let
   cfg = config.myAppSets;
+
+  # Helper to create a standard app set option
+  mkAppSet = description: {
+    enable = lib.mkEnableOption description;
+    extraPackages = lib.mkOption {
+      type = lib.types.listOf lib.types.package;
+      default = [ ];
+      description = "Extra packages to add to the ${description} set.";
+    };
+  };
 in
 {
   options.myAppSets = {
-    development.enable = lib.mkEnableOption "development tools";
-    school.enable = lib.mkEnableOption "school software";
-    games.enable = lib.mkEnableOption "gaming emulators";
-    media.enable = lib.mkEnableOption "media and browser tools";
+    profile = lib.mkOption {
+      type = lib.types.nullOr (lib.types.enum [ "workstation" "gaming" "server" "laptop" ]);
+      default = null;
+      description = "Pre-defined profile to enable multiple app sets at once.";
+    };
+    development = mkAppSet "development tools";
+    school = mkAppSet "school software";
+    gaming = mkAppSet "gaming emulators and tools";
+    media = mkAppSet "media consumption and browsers";
+    social = mkAppSet "communication tools";
+    creativity = mkAppSet "content creation tools";
+    productivity = mkAppSet "office and productivity tools";
   };
 
   config = lib.mkMerge [
+    # Profiles
+    (lib.mkIf (cfg.profile == "workstation") {
+      myAppSets.development.enable = lib.mkDefault true;
+      myAppSets.media.enable = lib.mkDefault true;
+      myAppSets.social.enable = lib.mkDefault true;
+      myAppSets.productivity.enable = lib.mkDefault true;
+    })
+
+    (lib.mkIf (cfg.profile == "gaming") {
+      myAppSets.gaming.enable = lib.mkDefault true;
+      myAppSets.media.enable = lib.mkDefault true;
+      myAppSets.social.enable = lib.mkDefault true;
+    })
+
+    (lib.mkIf (cfg.profile == "laptop") {
+      myAppSets.development.enable = lib.mkDefault true;
+      myAppSets.school.enable = lib.mkDefault true;
+      myAppSets.media.enable = lib.mkDefault true;
+      myAppSets.social.enable = lib.mkDefault true;
+      myAppSets.productivity.enable = lib.mkDefault true;
+    })
+
+    # System-level integrations
+    (lib.mkIf cfg.gaming.enable {
+      programs.steam.enable = true;
+      programs.gamemode.enable = true;
+    })
+
     (lib.mkIf cfg.development.enable {
-      home.packages = with pkgs; [ git gh vscode gcc gnumake godot_4 typst tinymist docker docker-compose ];
+      virtualisation.docker.enable = lib.mkDefault true;
     })
 
-    (lib.mkIf cfg.school.enable {
-      home.packages = with pkgs; [ ltspice sshpass lc3tools logisim ];
-    })
+    # Home Manager integration (pushing packages to the user)
+    {
+      home-manager.users.nicho = {
+        home.packages = lib.mkMerge [
+          (lib.mkIf cfg.development.enable (with pkgs; [
+            git gh gcc gnumake godot_4 typst tinymist docker-compose
+          ] ++ cfg.development.extraPackages))
 
-    (lib.mkIf cfg.games.enable {
-      home.packages = with pkgs; [ cemu dolphin-emu ryubing steam wine-wayland atlauncher ];
-    })
+          (lib.mkIf cfg.school.enable (with pkgs; [
+            ltspice sshpass lc3tools logisim
+          ] ++ cfg.school.extraPackages))
 
-    (lib.mkIf cfg.media.enable {
-      home.packages = with pkgs; [ google-chrome kdePackages.dolphin kdePackages.konsole kdePackages.filelight packagekit vesktop blender inkscape xournalpp libreoffice-fresh libqalculate ];
-    })
+          (lib.mkIf cfg.gaming.enable (with pkgs; [
+            steam cemu dolphin-emu ryubing atlauncher heroic mangohud mangojuice waydroid wine-wayland
+          ] ++ cfg.gaming.extraPackages))
+
+          (lib.mkIf cfg.media.enable (with pkgs; [
+            google-chrome kdePackages.dolphin kdePackages.konsole kdePackages.filelight libqalculate
+          ] ++ cfg.media.extraPackages))
+
+          (lib.mkIf cfg.social.enable (with pkgs; [
+            vesktop element-desktop
+          ] ++ cfg.social.extraPackages))
+
+          (lib.mkIf cfg.creativity.enable (with pkgs; [
+            blender inkscape gimp obs-studio
+          ] ++ cfg.creativity.extraPackages))
+
+          (lib.mkIf cfg.productivity.enable (with pkgs; [
+            libreoffice-fresh xournalpp pdfarranger
+          ] ++ cfg.productivity.extraPackages))
+        ];
+
+        programs.vscode = lib.mkIf cfg.development.enable {
+          enable = true;
+          package = pkgs.vscode;
+        };
+      };
+    }
   ];
 }

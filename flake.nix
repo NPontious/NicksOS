@@ -11,6 +11,7 @@
   };
 
   inputs = {
+    nix-flatpak.url = "github:gmodena/nix-flatpak";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     jovian.url = "github:Jovian-Experiments/Jovian-NixOS";
@@ -26,7 +27,7 @@
     agenix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, jovian, illogical-flake, home-manager, agenix, ... }: {
+  outputs = { self, nixpkgs, jovian, illogical-flake, home-manager, agenix, nix-flatpak, ... }: {
     nixosConfigurations = {
       glacio = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
@@ -42,7 +43,7 @@
 
       vesania = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = { inherit illogical-flake agenix; };
+        specialArgs = { inherit illogical-flake agenix nix-flatpak; };
         modules = [
           ./hosts/vesania/hardware-configuration.nix
           ./hosts/vesania/configuration.nix
@@ -53,7 +54,7 @@
 
       sylva = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = { inherit illogical-flake agenix; };
+        specialArgs = { inherit illogical-flake agenix nix-flatpak; };
         modules = [
           ./hosts/sylva/hardware-configuration.nix
           ./hosts/sylva/configuration.nix

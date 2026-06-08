@@ -5,6 +5,8 @@
     ./hardware-configuration.nix
     ../../modules/tailscale.nix
     ../../modules/illogical.nix
+    ../../modules/flatpak.nix
+    ../../modules/intel.nix
     ../../common.nix
   ];
   
@@ -12,6 +14,7 @@
 
   services.hardware.bolt.enable = true;
   boot.initrd.availableKernelModules = [ "thunderbolt" "xhci_pci" "nvme" "usb_storage" "sd_mod" ];
+  boot.initrd.kernelModules = [ "i915" ];
 
   boot.resumeDevice = "/dev/disk/by-uuid/c02199a3-33fe-4688-a447-299bcd69417c";
 
@@ -29,13 +32,12 @@
   services.upower.enable = true;
   services.geoclue2.enable = true;
 
+  myAppSets.profile = "laptop";
+
   home-manager.users.nicho = {
     imports = [
       ../../modules/home-manager-common.nix
     ];
-    myAppSets.development.enable = true;
-    myAppSets.media.enable = true;
-    myAppSets.school.enable = true;
   };
 
   system.stateVersion = "25.11"; 
