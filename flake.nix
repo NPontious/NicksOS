@@ -1,6 +1,15 @@
 {
   description = "NixOS configurations for multiple machines";
 
+  nixConfig = {
+    extra-substituters = [
+      "https://jovian-experiments.cachix.org"
+    ];
+    extra-trusted-public-keys = [
+      "jovian-experiments.cachix.org-1:TyDJIG9AdB5uEAHVAVCjXU1qKBZkCIvqj4rDRz5/sfY="
+    ];
+  };
+
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 

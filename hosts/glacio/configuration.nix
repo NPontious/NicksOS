@@ -28,27 +28,13 @@
     HSA_OVERRIDE_GFX_VERSION = "11.0.0";
   };
 
-  fileSystems."/mnt/smbshare" = {
-   device = "//192.168.1.101/Share";
-   fsType = "cifs";
-   options = [
-     "guest"
-     "iocharset=utf8"
-     "vers=3.1.1"
-     "uid=1000"
-     "gid=100"
-     "x-systemd.automount"
-     "noatime"
-     "nofail"
-   ];
-  };
-
   fileSystems."/mnt/storage" = {
    device = "/dev/disk/by-uuid/1bf904ce-54cf-4bf2-8193-f92266d1655a";
    fsType = "btrfs";
    options = [ 
      "defaults" 
      "compress=zstd"
+     "x-systemd.automount"
      "nofail"
    ];
   };
@@ -63,7 +49,7 @@
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [ 
     kitty tree git net-tools swww steam-rom-manager openssl 
-    cifs-utils google-chrome kdePackages.dolphin 
+    google-chrome kdePackages.dolphin 
     cemu ryubing dolphin-emu atlauncher waydroid heroic 
     gamemode mangohud mangojuice rocmPackages.rocm-smi 
     smartmontools appimage-run btrfs-progs 

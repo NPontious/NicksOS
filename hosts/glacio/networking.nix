@@ -15,7 +15,7 @@
 
     firewall = {
       enable = true;
-      trustedInterfaces = [ "enp4s0" "tailscale0" "docker0" "br+" ];
+      trustedInterfaces = [ "docker0" "br+" ];
       extraCommands = "iptables -A INPUT -i enp4s0 -p vrrp -j ACCEPT";
       checkReversePath = false;
     };

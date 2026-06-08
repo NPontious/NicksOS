@@ -4,24 +4,20 @@
   services.sonarr = {
     enable = true;
     group = "media";
-    openFirewall = true;
   };
 
   services.radarr = {
     enable = true;
     group = "media";
-    openFirewall = true;
   };
 
   services.lidarr = {
     enable = true;
     group = "media";
-    openFirewall = true;
   };
 
   services.prowlarr = {
     enable = true;
-    openFirewall = true;
   };
 
   virtualisation.oci-containers.containers.gluetun = {
@@ -36,13 +32,16 @@
       WIREGUARD_ENDPOINT_IP = "31.7.62.52";
       WIREGUARD_ENDPOINT_PORT = "443";
       WIREGUARD_PUBLIC_KEY = "3+ehrqWHaqA4lC10BRkscYasaewB2eamMSRda+HSkxQ=";
-      VPN_PORT_FORWARDING = "off";
+      VPN_PORT_FORWARDING = "on";
+      VPN_PORT_FORWARDING_PROVIDER = "windscribe";
     };
     environmentFiles = [
       config.age.secrets."windscribe-creds".path
     ];
     ports = [
-      "8081:8081/tcp"
+      "100.85.234.127:8081:8081/tcp"
+      "6881:6881/tcp"
+      "6881:6881/udp"
       "55000:55000/tcp"
       "55000:55000/udp"
     ];
@@ -58,16 +57,14 @@
       PUID = "987";
       PGID = "983";
       WEBUI_PORT = "8081";
+      # Ensure qBittorrent uses the VPN interface
+      QBITTORRENT__Session__InterfaceName = "tun0";
     };
     volumes = [
       "/var/lib/qbittorrent:/config"
       "/var/lib/qbittorrent/Downloads:/downloads"
     ];
   };
-
-  # Open firewall for the exposed ports on Gluetun
-  networking.firewall.allowedTCPPorts = [ 8081 55000 ];
-  networking.firewall.allowedUDPPorts = [ 55000 ];
 
   systemd.tmpfiles.rules = [
     "d /var/lib/gluetun 0750 root root -"
