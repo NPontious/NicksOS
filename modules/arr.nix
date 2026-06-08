@@ -32,8 +32,7 @@
       WIREGUARD_ENDPOINT_IP = "31.7.62.52";
       WIREGUARD_ENDPOINT_PORT = "443";
       WIREGUARD_PUBLIC_KEY = "3+ehrqWHaqA4lC10BRkscYasaewB2eamMSRda+HSkxQ=";
-      VPN_PORT_FORWARDING = "on";
-      VPN_PORT_FORWARDING_PROVIDER = "windscribe";
+      VPN_PORT_FORWARDING = "off";
     };
     environmentFiles = [
       config.age.secrets."windscribe-creds".path
