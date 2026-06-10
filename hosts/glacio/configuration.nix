@@ -43,7 +43,7 @@
     enable = true;
     autoStart = true;
     desktopSession = "hyprland";
-    user = "nicho";
+    user = config.mySystem.mainUser;
   };
 
   nixpkgs.config.allowUnfree = true;
@@ -74,11 +74,17 @@
     development.enable = true;
   };
 
-  home-manager.users.nicho = {
-    imports = [
-      ../../modules/home-manager-common.nix
-    ];
+
+
+  mySystem.tailscale.enable = true;
+  mySystem.services = {
+    jellyfin.enable = true;
+    immich.enable = true;
+    paperless.enable = true;
+    arr.enable = true;
+    ollama.enable = true;
   };
 
-  system.stateVersion = "25.11"; 
+  system.stateVersion = "25.11";
+ 
 }

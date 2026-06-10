@@ -35,7 +35,7 @@ in
       home-manager.useUserPackages = true;
       home-manager.backupFileExtension = "bak";
 
-      home-manager.users.nicho = {
+      home-manager.users.${config.mySystem.mainUser} = {
         imports = [ illogical-flake.homeManagerModules.default ];
         programs.illogical-impulse.enable = true;
         home.stateVersion = "24.05";
@@ -44,7 +44,7 @@ in
     })
 
     (lib.mkIf cfg.enableShell {
-      home-manager.users.nicho.programs.illogical-impulse.dotfiles = {
+      home-manager.users.${config.mySystem.mainUser}.programs.illogical-impulse.dotfiles = {
         fish.enable = true;
         starship.enable = true;
       };
@@ -52,7 +52,7 @@ in
 
     (lib.mkIf cfg.enableDesktop {
       programs.hyprland.enable = true;
-      home-manager.users.nicho = {
+      home-manager.users.${config.mySystem.mainUser} = {
         programs.illogical-impulse.dotfiles.kitty.enable = true;
         qt.platformTheme.name = lib.mkForce "kde";
         services.hypridle.enable = lib.mkForce false;
@@ -78,9 +78,6 @@ in
 
         xdg.configFile."hypr/hyprland/general.conf".text = lib.mkForce (
           let
-            # We want to patch the same file illogical-flake patches
-            # Since we can't easily get its internal dotfiles source, we replicate its logic
-            # but add our own patch.
             dotfilesSource = illogical-flake.inputs.dotfiles;
             originalText = builtins.readFile "${dotfilesSource}/dots/.config/hypr/hyprland/general.conf";
           in

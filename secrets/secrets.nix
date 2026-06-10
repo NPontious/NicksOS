@@ -6,17 +6,19 @@ let
   sylva_host = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBn2c/9xEqfTocaT2HfIAjEKYgJytv/dUq5Kr9TDdhCv root@sylva";
   desolo_host = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINhXX59EL8xxxnMQkaPYD+J1s70JXiAPFqBlPSNsFYDJ root@nixos";
   
-  admins = [ nicho_vesania glacio_host vesania_host sylva_host desolo_host ];
-  systems = [ glacio_host vesania_host sylva_host desolo_host ];
+  admins = [ nicho_vesania ];
+  hosts = [ glacio_host vesania_host sylva_host desolo_host ];
 
-  all = admins ++ systems;
+  # Groups
+  all_hosts = admins ++ hosts;
+  glacio_only = admins ++ [ glacio_host ];
 in
 {
-  "postgres-password.age".publicKeys = all;
-  "openai-access-token.age".publicKeys = all;
-  "webui-secret-key.age".publicKeys = all;
-  "secret-key-base.age".publicKeys = all;
-  "sure-env.age".publicKeys = all;
-  "paperless-password.age".publicKeys = all;
-  "windscribe-creds.age".publicKeys = all;
+  "postgres-password.age".publicKeys = glacio_only;
+  "openai-access-token.age".publicKeys = all_hosts;
+  "webui-secret-key.age".publicKeys = glacio_only;
+  "secret-key-base.age".publicKeys = glacio_only;
+  "sure-env.age".publicKeys = glacio_only;
+  "paperless-password.age".publicKeys = glacio_only;
+  "windscribe-creds.age".publicKeys = glacio_only;
 }

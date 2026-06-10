@@ -20,11 +20,8 @@
 
   myAppSets.profile = "server";
 
-  home-manager.users.nicho = {
-    imports = [
-      ../../modules/home-manager-common.nix
-    ];
-  };
+  mySystem.tailscale.enable = true;
+  mySystem.hardware.intel.enable = true;
 
   system.stateVersion = "25.11"; 
 }

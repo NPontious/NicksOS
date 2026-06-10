@@ -314,4 +314,19 @@
     };
     wantedBy = [ "multi-user.target" ];
   };
+
+  age.secrets = {
+    "postgres-password" = {
+      file = ../secrets/postgres-password.age;
+      mode = "0400";
+    };
+    "sure-env" = {
+      file = ../secrets/sure-env.age;
+      mode = "0400";
+    };
+    "secret-key-base" = {
+      file = ../secrets/secret-key-base.age;
+      mode = "0400";
+    };
+  };
 }

@@ -76,7 +76,7 @@ in
 
     # Home Manager integration (pushing packages to the user)
     {
-      home-manager.users.nicho = {
+      home-manager.users.${config.mySystem.mainUser} = {
         home.packages = lib.mkMerge [
           (lib.mkIf cfg.development.enable (with pkgs; [
             git gh gcc gnumake godot_4 typst tinymist docker-compose

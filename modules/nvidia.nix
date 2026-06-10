@@ -1,41 +1,34 @@
-{ config, pkgs, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 {
-  # Enable graphics
-  hardware.graphics = {
-    enable = true;
-    enable32Bit = true;
-  };
+  options.mySystem.hardware.nvidia.enable = lib.mkEnableOption "NVIDIA Graphics Support";
 
-  # Load nvidia driver for Xorg and Wayland
-  services.xserver.videoDrivers = ["nvidia"];
+  config = lib.mkIf config.mySystem.hardware.nvidia.enable {
+    hardware.graphics = {
+      enable = true;
+      enable32Bit = true;
+    };
 
-  hardware.nvidia = {
-    # Modesetting is required.
-    modesetting.enable = true;
+    services.xserver.videoDrivers = ["nvidia"];
 
-    # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
-    powerManagement.enable = true;
+    hardware.nvidia = {
+      modesetting.enable = true;
+      powerManagement.enable = true;
+      powerManagement.finegrained = false;
+      open = true;
+      nvidiaSettings = true;
+      package = config.boot.kernelPackages.nvidiaPackages.latest;
+    };
 
-    # Fine-grained power management. Turns off GPU when not in use.
-    powerManagement.finegrained = false;
+    environment.sessionVariables = {
+      WLR_NO_HARDWARE_CURSORS = "1";
+      NIXOS_OZONE_WL = "1";
+    };
 
-    # Use the NVidia open source kernel module.
-    # Works on Turing or newer GPUs.
-    open = true;
-
-    # Enable the Nvidia settings menu.
-    nvidiaSettings = true;
-
-    # Select the appropriate driver version for your specific GPU.
-    package = config.boot.kernelPackages.nvidiaPackages.latest;
-  };
-
-  # Wayland/Hyprland specific environment variables
-  environment.sessionVariables = {
-    # If your cursor becomes invisible
-    WLR_NO_HARDWARE_CURSORS = "1";
-    # Hint electron apps to use wayland
-    NIXOS_OZONE_WL = "1";
+    nixpkgs.overlays = [
+      (final: prev: {
+        btop = prev.btop.override { cudaSupport = true; };
+      })
+    ];
   };
 }

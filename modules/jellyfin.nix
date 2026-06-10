@@ -1,11 +1,10 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
-  services.jellyfin = {
-    enable = true;
-  };
+  options.mySystem.services.jellyfin.enable = lib.mkEnableOption "Jellyfin Media Server";
 
-  users.users.jellyfin = {
-    extraGroups = [ "media" ];
+  config = lib.mkIf config.mySystem.services.jellyfin.enable {
+    services.jellyfin.enable = true;
+    users.users.jellyfin.extraGroups = [ config.mySystem.mediaGroup ];
   };
 }

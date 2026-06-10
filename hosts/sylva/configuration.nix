@@ -12,11 +12,7 @@
 
   networking.hostName = "sylva";
 
-  nixpkgs.overlays = [
-    (final: prev: {
-      btop = prev.btop.override { cudaSupport = true; };
-    })
-  ];
+
 
   services.blueman.enable = true;
   services.displayManager.ly.enable = true;
@@ -52,11 +48,12 @@
     creativity.enable = true;
   };
 
-  home-manager.users.nicho = {
-    imports = [
-      ../../modules/home-manager-common.nix
-    ];
-  };
+
   
-  system.stateVersion = "25.11"; 
+  mySystem.tailscale.enable = true;
+  mySystem.flatpak.enable = true;
+  mySystem.hardware.nvidia.enable = true;
+
+  system.stateVersion = "25.11";
+ 
 }

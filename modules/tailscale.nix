@@ -1,11 +1,10 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
-  services.tailscale = {
-    enable = true;
-    #extraUpFlags = [ "--advertise-routes=192.168.100.0/24" ];
-  };
-  #boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
+  options.mySystem.tailscale.enable = lib.mkEnableOption "Tailscale";
 
-  networking.firewall.trustedInterfaces = [ "tailscale0" ];
+  config = lib.mkIf config.mySystem.tailscale.enable {
+    services.tailscale.enable = true;
+    networking.firewall.trustedInterfaces = [ "tailscale0" ];
+  };
 }
