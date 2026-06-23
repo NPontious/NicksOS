@@ -11,25 +11,8 @@ in
 
   config = lib.mkMerge [
     (lib.mkIf (cfg.enableShell || cfg.enableDesktop) {
-      nixpkgs.overlays = [
-        (final: prev: {
-          pythonPackagesExtensions = (prev.pythonPackagesExtensions or []) ++ [
-            (python-final: python-prev: 
-              if python-prev ? kde-material-you-colors then {
-                kde-material-you-colors = python-prev.kde-material-you-colors.overridePythonAttrs (old: {
-                  dependencies = (old.dependencies or []) ++ [ python-prev.python-magic ];
-                  propagatedBuildInputs = (old.propagatedBuildInputs or []) ++ [ python-prev.python-magic ];
-                });
-              } else {}
-            )
-          ];
-
-          kde-material-you-colors = prev.kde-material-you-colors.overridePythonAttrs (old: {
-            dependencies = (old.dependencies or []) ++ [ prev.python3Packages.python-magic ];
-            propagatedBuildInputs = (old.propagatedBuildInputs or []) ++ [ prev.python3Packages.python-magic ];
-          });
-        })
-      ];
+      # We removed the manual Python overlay because the 'ye' fork 
+      # manages its own isolated python environment for color switching.
 
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
@@ -39,7 +22,9 @@ in
         imports = [ illogical-flake.homeManagerModules.default ];
         programs.illogical-impulse.enable = true;
         home.stateVersion = "24.05";
-        xdg.configFile."dolphinrc".enable = false;
+        
+        # NOTE: dolphinrc is now managed as a mutable file by the 'ye' flake,
+        # so we no longer need the 'enable = false' hack.
       };
     })
 
@@ -52,9 +37,14 @@ in
 
     (lib.mkIf cfg.enableDesktop {
       programs.hyprland.enable = true;
+      
       home-manager.users.${config.mySystem.mainUser} = {
         programs.illogical-impulse.dotfiles.kitty.enable = true;
+        
+        # The 'ye' fork sets up qt6ct/kvantum. If you prefer the standard KDE
+        # theme engine, you can keep this, but 'ye' is designed for qt6ct.
         qt.platformTheme.name = lib.mkForce "kde";
+        
         services.hypridle.enable = lib.mkForce false;
 
         home.pointerCursor = {
@@ -65,31 +55,12 @@ in
           x11.enable = true;
         };
 
+        # You can now add any Hyprland overrides here declaratively.
+        # These will be merged with the dotfiles' Lua configuration.
         wayland.windowManager.hyprland.settings = {
-          exec-once = [ "kitty" "hyprctl setcursor Bibata-Modern-Ice 24" ];
-          monitor = [ ",highrr,auto,1" ];
-          env = [ "XCURSOR_THEME,Bibata-Modern-Ice" "XCURSOR_SIZE,24" ];
-          misc = {
-            vrr = 0;                  
-            disable_hyprland_logo = true;
-            disable_splash_rendering = true;
-          };
+          # Example:
+          # monitor = [ ",highrr,auto,1" ];
         };
-
-        xdg.configFile."hypr/hyprland/general.conf".text = lib.mkForce (
-          let
-            dotfilesSource = illogical-flake.inputs.dotfiles;
-            originalText = builtins.readFile "${dotfilesSource}/dots/.config/hypr/hyprland/general.conf";
-          in
-          builtins.replaceStrings
-            [ "enable_gesture = false" "gesture_positive = false" "gesture_distance = 300" ]
-            [ 
-              "# enable_gesture = false # Removed: obsolete hyprexpo option" 
-              "# gesture_positive = false # Removed: obsolete hyprexpo option" 
-              "# gesture_distance = 300 # Removed: obsolete hyprexpo option"
-            ]
-            originalText
-        );
       };
     })
   ];

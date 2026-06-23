@@ -6,6 +6,10 @@
     nix-direnv.enable = true;
   };
 
+  programs.fish.enable = true;
+  programs.fish.interactiveShellInit = "set -g fish_greeting";
+
+
   programs.btop = {
     enable = true;
     settings = {

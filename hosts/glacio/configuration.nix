@@ -46,6 +46,11 @@
     user = config.mySystem.mainUser;
   };
 
+  nix.settings = {
+    extra-substituters = [ "https://jovian-experiments.cachix.org" ];
+    extra-trusted-public-keys = [ "jovian-experiments.cachix.org-1:TyDJIG9AdB5uEAHVAVCjXU1qKBZkCIvqj4rDRz5/sfY=" ];
+  };
+
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [ 
     kitty tree git net-tools swww steam-rom-manager openssl 

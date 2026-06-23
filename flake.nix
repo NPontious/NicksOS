@@ -1,15 +1,6 @@
 {
   description = "NixOS configurations for multiple machines";
 
-  nixConfig = {
-    extra-substituters = [
-      "https://jovian-experiments.cachix.org"
-    ];
-    extra-trusted-public-keys = [
-      "jovian-experiments.cachix.org-1:TyDJIG9AdB5uEAHVAVCjXU1qKBZkCIvqj4rDRz5/sfY="
-    ];
-  };
-
   inputs = {
     nix-flatpak.url = "github:gmodena/nix-flatpak";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -17,7 +8,7 @@
     jovian.url = "github:Jovian-Experiments/Jovian-NixOS";
     jovian.inputs.nixpkgs.follows = "nixpkgs";
 
-    illogical-flake.url = "github:soymou/illogical-flake";
+    illogical-flake.url = "github:npontious/illogical-flake";
     illogical-flake.inputs.nixpkgs.follows = "nixpkgs";
 
     home-manager.url = "github:nix-community/home-manager";
