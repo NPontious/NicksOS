@@ -91,7 +91,7 @@ in
           ] ++ cfg.gaming.extraPackages))
 
           (lib.mkIf cfg.media.enable (with pkgs; [
-            google-chrome kdePackages.dolphin kdePackages.konsole kdePackages.filelight libqalculate
+            google-chrome kdePackages.dolphin kdePackages.konsole kdePackages.filelight libqalculate jellyfin-desktop
           ] ++ cfg.media.extraPackages))
 
           (lib.mkIf cfg.social.enable (with pkgs; [
