@@ -15,13 +15,9 @@
       package = pkgs.ollama-rocm;
       rocmOverrideGfx = "11.0.0";
       loadModels = [
-        "llama3.1:8b"
-        "llama3.2"
-        "gemma3"
-        "qwen3.5:4b"
-        "qwen3.5:9b-q8_0"
+        "gemma4"
+        "qwen3.5:4b-q8_0"
         "qwen3.5:9b-q4_K_M"
-        "qwen3-embedding:4b-q4_K_M"
       ];
     };
 
