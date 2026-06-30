@@ -18,6 +18,8 @@ in
       home-manager.useUserPackages = true;
       home-manager.backupFileExtension = "bak";
 
+      environment.pathsToLink = [ "/share/applications" "/share/xdg-desktop-portal" ];
+
       home-manager.users.${config.mySystem.mainUser} = {
         imports = [ illogical-flake.homeManagerModules.default ];
         programs.illogical-impulse.enable = true;
