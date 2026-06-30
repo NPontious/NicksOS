@@ -23,6 +23,65 @@
       enable = true;
     };
 
+    systemd.services.lidarr.serviceConfig = {
+      NoNewPrivileges = true;
+      
+      PrivateTmp = true;
+      PrivateDevices = true;
+      ProtectClock = true;
+      ProtectControlGroups = true;
+      ProtectHostname = true;
+      ProtectKernelLogs = true;
+      ProtectKernelModules = true;
+      ProtectKernelTunables = true;
+      ProtectProc = "invisible";
+      RestrictNamespaces = true;
+      RestrictRealtime = true;
+      RestrictSUIDSGID = true;
+      
+      RestrictAddressFamilies = [ "AF_INET" "AF_INET6" "AF_UNIX" ];
+      
+      SystemCallFilter = [ "@system-service" "~@privileged" ];
+
+      ProtectSystem = "strict"; 
+      ProtectHome = true;
+      
+      ReadWritePaths = [
+        "/var/lib/lidarr"
+        "/mnt/storage/media"
+      ];
+    };
+
+    
+    systemd.services.prowlarr.serviceConfig = {
+      NoNewPrivileges = true;
+      
+      PrivateTmp = true;
+      PrivateDevices = true;
+      ProtectClock = true;
+      ProtectControlGroups = true;
+      ProtectHostname = true;
+      ProtectKernelLogs = true;
+      ProtectKernelModules = true;
+      ProtectKernelTunables = true;
+      ProtectProc = "invisible";
+      RestrictNamespaces = true;
+      RestrictRealtime = true;
+      RestrictSUIDSGID = true;
+      
+      RestrictAddressFamilies = [ "AF_INET" "AF_INET6" "AF_UNIX" ];
+      
+      SystemCallFilter = [ "@system-service" "~@privileged" ];
+
+      ProtectSystem = "strict"; 
+      ProtectHome = true;
+      
+      ReadWritePaths = [
+        "/var/lib/prowlarr"
+        "/mnt/storage/media"
+      ];
+    };
+
     virtualisation.oci-containers.containers.gluetun = {
       image = "qmcgaw/gluetun:latest";
       extraOptions = [
