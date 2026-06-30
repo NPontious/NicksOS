@@ -14,6 +14,8 @@ in
       # We removed the manual Python overlay because the 'ye' fork 
       # manages its own isolated python environment for color switching.
 
+      programs.dconf.enable = cfg.enableDesktop;
+
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
       home-manager.backupFileExtension = "bak";
@@ -24,6 +26,8 @@ in
         imports = [ illogical-flake.homeManagerModules.default ];
         programs.illogical-impulse.enable = true;
         home.stateVersion = "24.05";
+        
+        dconf.enable = cfg.enableDesktop;
         
         # NOTE: dolphinrc is now managed as a mutable file by the 'ye' flake,
         # so we no longer need the 'enable = false' hack.
