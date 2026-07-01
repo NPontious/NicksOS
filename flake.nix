@@ -22,7 +22,7 @@
     nixosConfigurations = {
       glacio = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = { inherit illogical-flake agenix; };
+        specialArgs = { inherit illogical-flake agenix nix-flatpak; };
         modules = [
           ./hosts/glacio/hardware-configuration.nix
           ./hosts/glacio/configuration.nix

@@ -13,6 +13,7 @@
     ../../modules/sure-generated.nix
     ../../modules/arr.nix
     ../../modules/ollama.nix
+    ../../modules/flatpak.nix
   ];
 
   systemd.targets.sleep.enable = false;
@@ -82,6 +83,7 @@
 
 
   mySystem.tailscale.enable = true;
+  mySystem.flatpak.enable = true;
   mySystem.services = {
     jellyfin.enable = true;
     immich.enable = true;
