@@ -48,11 +48,11 @@
     "dotfiles": {
       "flake": false,
       "locked": {
-        "lastModified": 1783023323,
-        "narHash": "sha256-58b7erZFkK5GOLq+STWQMSGxTkfWqcy102biSEA3aS8=",
+        "lastModified": 1783024507,
+        "narHash": "sha256-//aajA+25UKMBpTfOL6zpVIecYDmcaCNB0gBYicGx0s=",
         "ref": "refs/heads/main",
-        "rev": "627c53ed150d324e50c8cb4867958de8944fa068",
-        "revCount": 6325,
+        "rev": "9a36343ad24ef8a7ee5887b6310ef23555b7e5cb",
+        "revCount": 6326,
         "submodules": true,
         "type": "git",
         "url": "https://github.com/npontious/dots-hyprland.git"
@@ -136,11 +136,11 @@
         "quickshell": "quickshell"
       },
       "locked": {
-        "lastModified": 1783023351,
-        "narHash": "sha256-OkKhptbdc+ntOP6S4uvKfDe5ccf47Qj/H2QIcJxPsOU=",
+        "lastModified": 1783024543,
+        "narHash": "sha256-QjcnSVcPdrwneN8JLD/LDrMIRXXltxUbvUnXROu7wbg=",
         "owner": "npontious",
         "repo": "illogical-flake",
-        "rev": "1f40189a6ec5e611883213f283731bd91e587ad9",
+        "rev": "72176f832dc40bcf8daaa6a1bbdfeac84630c1d3",
         "type": "github"
       },
       "original": {
