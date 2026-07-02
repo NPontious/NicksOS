@@ -141,8 +141,6 @@
     log-driver = "journald";
     extraOptions = [
       "--add-host=host.docker.internal:host-gateway"
-      "--dns=1.1.1.1"
-      "--dns=8.8.8.8"
       "--network-alias=web"
       "--network=sure_sure_net"
     ];
@@ -211,8 +209,6 @@
     log-driver = "journald";
     extraOptions = [
       "--add-host=host.docker.internal:host-gateway"
-      "--dns=1.1.1.1"
-      "--dns=8.8.8.8"
       "--network-alias=worker"
       "--network=sure_sure_net"
     ];
