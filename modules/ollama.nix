@@ -12,8 +12,10 @@
       enable = true;
       host = "0.0.0.0";
       port = 11434;
-      package = pkgs.ollama-rocm;
-      rocmOverrideGfx = "11.0.0";
+      package = pkgs.ollama-vulkan;
+      environmentVariables = {
+        OLLAMA_IGPU_ENABLE = "1";
+      };
       loadModels = [
         "gemma4"
         "qwen3.5:4b-q8_0"
