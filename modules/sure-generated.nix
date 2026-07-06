@@ -256,6 +256,8 @@
       RemainAfterExit = true;
       ExecStop = "docker network rm -f sure_sure_net";
     };
+    after = [ "docker.service" "docker.socket" ];
+    wants = [ "docker.service" "docker.socket" ];
     script = ''
       docker network inspect sure_sure_net || docker network create sure_sure_net --driver=bridge
     '';
@@ -270,6 +272,8 @@
       Type = "oneshot";
       RemainAfterExit = true;
     };
+    after = [ "docker.service" "docker.socket" ];
+    wants = [ "docker.service" "docker.socket" ];
     script = ''
       docker volume inspect sure_app-storage || docker volume create sure_app-storage
     '';
@@ -282,6 +286,8 @@
       Type = "oneshot";
       RemainAfterExit = true;
     };
+    after = [ "docker.service" "docker.socket" ];
+    wants = [ "docker.service" "docker.socket" ];
     script = ''
       docker volume inspect sure_postgres-data || docker volume create sure_postgres-data
     '';
@@ -294,6 +300,8 @@
       Type = "oneshot";
       RemainAfterExit = true;
     };
+    after = [ "docker.service" "docker.socket" ];
+    wants = [ "docker.service" "docker.socket" ];
     script = ''
       docker volume inspect sure_redis-data || docker volume create sure_redis-data
     '';
