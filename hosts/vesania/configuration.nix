@@ -32,7 +32,10 @@
   services.upower.enable = true;
   services.geoclue2.enable = true;
 
-  myAppSets.profile = "laptop";
+  myAppSets = {
+    profile = "laptop";
+    gaming.enable = true;
+  };
 
   mySystem.tailscale.enable = true;
   mySystem.flatpak.enable = true;
