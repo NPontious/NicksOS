@@ -34,7 +34,7 @@
     boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;
     boot.supportedFilesystems = [ "btrfs" ];
-    boot.kernelPackages = pkgs.linuxPackages; 
+    boot.kernelPackages = lib.mkDefault pkgs.linuxPackages; 
 
     networking.networkmanager.enable = true;
 
