@@ -8,6 +8,11 @@
       default = 8083;
       description = "Port to expose the MediaLyze web interface on.";
     };
+    mediaDir = lib.mkOption {
+      type = lib.types.str;
+      default = "/mnt/storage";
+      description = "Path to the media storage directory to mount into MediaLyze.";
+    };
   };
 
   config = lib.mkIf config.mySystem.services.medialyze.enable {
@@ -25,7 +30,7 @@
       ];
       volumes = [
         "/var/lib/medialyze:/config"
-        "/mnt/storage/media:/media:ro"
+        "${config.mySystem.services.medialyze.mediaDir}:/media:ro"
       ];
     };
   };
