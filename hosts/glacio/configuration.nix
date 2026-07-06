@@ -9,6 +9,7 @@
     ../../modules/jellyfin.nix
     ../../modules/immich.nix
     ../../modules/paperless.nix
+    ../../modules/medialyze.nix
     ./networking.nix
     ../../modules/sure-generated.nix
     ../../modules/arr.nix
@@ -90,6 +91,7 @@
     paperless.enable = true;
     arr.enable = true;
     ollama.enable = true;
+    medialyze.enable = true;
   };
 
   system.stateVersion = "25.11";
