@@ -5,7 +5,7 @@
     enable = lib.mkEnableOption "MediaLyze Media Analyzer";
     port = lib.mkOption {
       type = lib.types.port;
-      default = 8080;
+      default = 8083;
       description = "Port to expose the MediaLyze web interface on.";
     };
   };
