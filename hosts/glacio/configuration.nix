@@ -48,6 +48,13 @@
     user = config.mySystem.mainUser;
   };
 
+  # Clean up temporary desktop session override files created by SteamOS/Jovian
+  # when switching to desktop mode ("zzt-holo-temp-login.conf"). Otherwise,
+  # SDDM will continue booting into Hyprland on subsequent reboots.
+  systemd.services.display-manager.preStart = ''
+    rm -f /etc/sddm.conf.d/zzt-holo-temp-login.conf /etc/sddm.conf.d/zzt-steamos-temp-login.conf
+  '';
+
   nix.settings = {
     extra-substituters = [ "https://jovian-experiments.cachix.org" ];
     extra-trusted-public-keys = [ "jovian-experiments.cachix.org-1:TyDJIG9AdB5uEAHVAVCjXU1qKBZkCIvqj4rDRz5/sfY=" ];
@@ -76,6 +83,17 @@
   mySystem.illogical.enableShell = true;
   mySystem.illogical.enableDesktop = true;
   mySystem.illogical.scale = 1.5;
+
+  home-manager.users.${config.mySystem.mainUser} = {
+    xdg.desktopEntries."return-to-gaming-mode" = {
+      name = "Return to Gaming Mode";
+      comment = "Exit desktop session and return to Steam Gaming Mode";
+      exec = "steamosctl switch-to-game-mode";
+      icon = "steam";
+      terminal = false;
+      categories = [ "Game" "System" ];
+    };
+  };
 
   myAppSets = {
     profile = "gaming";
