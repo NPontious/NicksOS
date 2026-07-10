@@ -39,6 +39,7 @@
 
   mySystem.illogical.enableShell = true;
   mySystem.illogical.enableDesktop = true;
+  mySystem.illogical.scale = 1;
 
   myAppSets = {
     profile = "gaming";

@@ -30,6 +30,7 @@
 
   mySystem.illogical.enableShell = true;
   mySystem.illogical.enableDesktop = true;
+  mySystem.illogical.scale = 1;
   services.upower.enable = true;
   services.geoclue2.enable = true;
 
