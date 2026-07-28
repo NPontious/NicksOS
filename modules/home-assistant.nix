@@ -33,6 +33,7 @@ in
         "ollama"
         "immich"
         "paperless_ngx"
+        "google"
       ];
       config = {
         default_config = {};
