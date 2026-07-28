@@ -21,7 +21,7 @@
     ];
 
     virtualisation.oci-containers.containers.medialyze = {
-      image = "ghcr.io/npontious/medialyze:dev";
+      image = "ghcr.io/npontious/medialyze:latest";
       environment = {
         TZ = config.time.timeZone;
       };

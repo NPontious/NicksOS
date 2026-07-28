@@ -16,13 +16,18 @@
 
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
+
+    ha-fordpass = {
+      url = "github:marq24/ha-fordpass";
+      flake = false;
+    };
   };
 
-  outputs = { self, nixpkgs, jovian, illogical-flake, home-manager, agenix, nix-flatpak, ... }: {
+  outputs = { self, nixpkgs, jovian, illogical-flake, home-manager, agenix, nix-flatpak, ha-fordpass, ... }: {
     nixosConfigurations = {
       glacio = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = { inherit illogical-flake agenix nix-flatpak; };
+        specialArgs = { inherit illogical-flake agenix nix-flatpak ha-fordpass; };
         modules = [
           ./hosts/glacio/hardware-configuration.nix
           ./hosts/glacio/configuration.nix
@@ -34,7 +39,7 @@
 
       vesania = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = { inherit illogical-flake agenix nix-flatpak; };
+        specialArgs = { inherit illogical-flake agenix nix-flatpak ha-fordpass; };
         modules = [
           ./hosts/vesania/hardware-configuration.nix
           ./hosts/vesania/configuration.nix
@@ -45,7 +50,7 @@
 
       sylva = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = { inherit illogical-flake agenix nix-flatpak; };
+        specialArgs = { inherit illogical-flake agenix nix-flatpak ha-fordpass; };
         modules = [
           ./hosts/sylva/hardware-configuration.nix
           ./hosts/sylva/configuration.nix
@@ -56,7 +61,7 @@
       
       desolo = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = { inherit illogical-flake agenix; };
+        specialArgs = { inherit illogical-flake agenix ha-fordpass; };
         modules = [
           ./hosts/desolo/hardware-configuration.nix
           ./hosts/desolo/configuration.nix

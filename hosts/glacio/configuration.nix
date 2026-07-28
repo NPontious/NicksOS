@@ -12,9 +12,11 @@
     ../../modules/medialyze.nix
     ./networking.nix
     ../../modules/sure-generated.nix
+    ../../modules/swiparr-generated.nix
     ../../modules/arr.nix
     ../../modules/ollama.nix
     ../../modules/flatpak.nix
+    ../../modules/home-assistant.nix
   ];
 
   systemd.targets.sleep.enable = false;
@@ -84,14 +86,30 @@
   mySystem.illogical.enableDesktop = true;
   mySystem.illogical.scale = 1.5;
 
+  security.sudo.extraRules = [
+    {
+      users = [ config.mySystem.mainUser ];
+      commands = [
+        {
+          command = "${pkgs.systemd}/bin/systemctl restart display-manager.service";
+          options = [ "NOPASSWD" ];
+        }
+        {
+          command = "/run/current-system/sw/bin/systemctl restart display-manager.service";
+          options = [ "NOPASSWD" ];
+        }
+      ];
+    }
+  ];
+
   home-manager.users.${config.mySystem.mainUser} = {
     xdg.desktopEntries."return-to-gaming-mode" = {
       name = "Return to Gaming Mode";
       comment = "Exit desktop session and return to Steam Gaming Mode";
-      exec = "steamosctl switch-to-game-mode";
+      exec = "sudo systemctl restart display-manager.service";
       icon = "steam";
       terminal = false;
-      categories = [ "Game" "System" ];
+      categories = [ "Game" ];
     };
   };
 
@@ -111,6 +129,7 @@
     arr.enable = true;
     ollama.enable = true;
     medialyze.enable = true;
+    home-assistant.enable = true;
   };
 
   system.stateVersion = "25.11";
