@@ -26,6 +26,29 @@
   
   networking.hostName = "glacio";
 
+  services.acpid.enable = true;
+
+  power.ups = {
+    enable = true;
+    ups.cyberpower = {
+      driver = "usbhid-ups";
+      port = "auto";
+      description = "CyberPower PR1500LCDRT2U";
+    };
+    users.homeassistant = {
+      passwordFile = toString (pkgs.writeText "nut-password" "hapassword");
+      upsmon = "primary";
+    };
+    upsmon.monitor.cyberpower = {
+      system = "cyberpower@localhost";
+      user = "homeassistant";
+      passwordFile = toString (pkgs.writeText "nut-password" "hapassword");
+      type = "primary";
+      powerValue = 1;
+    };
+  };
+
+
   services.blueman.enable = true;
 
   environment.variables = {

@@ -35,24 +35,13 @@ in
         "paperless_ngx"
         "google"
         "panel_custom"
+        "nut"
       ];
       config = {
         default_config = {};
         frontend = {
           themes = "!include_dir_merge_named themes";
-          extra_module_url = [
-            "/hacsfiles/material-you-utilities/material-you-utilities.min.js"
-          ];
         };
-        panel_custom = [
-          {
-            name = "material-you-panel";
-            url_path = "material-you-configuration";
-            sidebar_title = "Material You Utilities";
-            sidebar_icon = "mdi:material-design";
-            module_url = "/hacsfiles/material-you-utilities/material-you-utilities.min.js";
-          }
-        ];
       };
     };
   };
