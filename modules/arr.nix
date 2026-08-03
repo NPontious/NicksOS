@@ -100,6 +100,7 @@
         config.age.secrets."windscribe-creds".path
       ];
       ports = [
+        "127.0.0.1:8081:8081/tcp"
         "100.85.234.127:8081:8081/tcp"
         "6881:6881/tcp"
         "6881:6881/udp"
