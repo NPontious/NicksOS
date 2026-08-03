@@ -87,10 +87,8 @@
 
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [ 
-    kitty tree git net-tools swww steam-rom-manager openssl 
-    google-chrome kdePackages.dolphin 
-    cemu ryubing dolphin-emu atlauncher waydroid heroic 
-    mangohud mangojuice rocmPackages.rocm-smi 
+    kitty tree net-tools swww openssl 
+    rocmPackages.rocm-smi 
     cifs-utils 
     smartmontools appimage-run btrfs-progs 
   ];

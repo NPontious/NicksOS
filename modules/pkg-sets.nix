@@ -87,7 +87,7 @@ in
           ] ++ cfg.school.extraPackages))
 
           (lib.mkIf cfg.gaming.enable (with pkgs; [
-            steam cemu dolphin-emu ryubing atlauncher heroic mangohud mangojuice waydroid wine-wayland
+            steam cemu dolphin-emu ryubing atlauncher heroic mangohud mangojuice waydroid wine-wayland eden steam-rom-manager
           ] ++ cfg.gaming.extraPackages))
 
           (lib.mkIf cfg.media.enable (with pkgs; [
