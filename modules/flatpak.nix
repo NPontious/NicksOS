@@ -23,7 +23,15 @@
       ];
       packages = [
         "org.vinegarhq.Sober"
+        "org.jellyfin.JellyfinDesktop"
       ];
+    };
+
+    home-manager.users.${config.mySystem.mainUser} = {
+      home.file.".var/app/org.jellyfin.JellyfinDesktop/config/mpv/mpv.conf".text = ''
+        vo=gpu-next
+        gpu-api=vulkan
+      '';
     };
   };
 }
