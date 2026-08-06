@@ -20,36 +20,40 @@ in
       default = null;
       description = "Pre-defined profile to enable multiple app sets at once.";
     };
-    development = mkAppSet "development tools";
-    school = mkAppSet "school software";
+    software_dev = mkAppSet "software development tools";
+    engineering = mkAppSet "engineering and electronics tools";
     gaming = mkAppSet "gaming emulators and tools";
     media = mkAppSet "media consumption and browsers";
     social = mkAppSet "communication tools";
     creativity = mkAppSet "content creation tools";
-    productivity = mkAppSet "office and productivity tools";
+    documents = mkAppSet "document creation and editing";
+    system_utils = mkAppSet "core system utilities";
   };
 
   config = lib.mkMerge [
     # Profiles
     (lib.mkIf (cfg.profile == "workstation") {
-      myAppSets.development.enable = lib.mkDefault true;
+      myAppSets.software_dev.enable = lib.mkDefault true;
       myAppSets.media.enable = lib.mkDefault true;
       myAppSets.social.enable = lib.mkDefault true;
-      myAppSets.productivity.enable = lib.mkDefault true;
+      myAppSets.documents.enable = lib.mkDefault true;
+      myAppSets.system_utils.enable = lib.mkDefault true;
     })
 
     (lib.mkIf (cfg.profile == "gaming") {
       myAppSets.gaming.enable = lib.mkDefault true;
       myAppSets.media.enable = lib.mkDefault true;
       myAppSets.social.enable = lib.mkDefault true;
+      myAppSets.system_utils.enable = lib.mkDefault true;
     })
 
     (lib.mkIf (cfg.profile == "laptop") {
-      myAppSets.development.enable = lib.mkDefault true;
-      myAppSets.school.enable = lib.mkDefault true;
+      myAppSets.software_dev.enable = lib.mkDefault true;
+      myAppSets.engineering.enable = lib.mkDefault true;
       myAppSets.media.enable = lib.mkDefault true;
       myAppSets.social.enable = lib.mkDefault true;
-      myAppSets.productivity.enable = lib.mkDefault true;
+      myAppSets.documents.enable = lib.mkDefault true;
+      myAppSets.system_utils.enable = lib.mkDefault true;
     })
 
     # System-level integrations
@@ -70,7 +74,7 @@ in
       '';
     })
 
-    (lib.mkIf cfg.development.enable {
+    (lib.mkIf cfg.software_dev.enable {
       virtualisation.docker.enable = lib.mkDefault true;
     })
 
@@ -78,20 +82,20 @@ in
     {
       home-manager.users.${config.mySystem.mainUser} = {
         home.packages = lib.mkMerge [
-          (lib.mkIf cfg.development.enable (with pkgs; [
-            git gh gcc gnumake godot_4 typst tinymist docker-compose
-          ] ++ cfg.development.extraPackages))
+          (lib.mkIf cfg.software_dev.enable (with pkgs; [
+            git gh gcc gnumake godot_4 docker-compose
+          ] ++ cfg.software_dev.extraPackages))
 
-          (lib.mkIf cfg.school.enable (with pkgs; [
-            ltspice sshpass lc3tools logisim
-          ] ++ cfg.school.extraPackages))
+          (lib.mkIf cfg.engineering.enable (with pkgs; [
+            ltspice lc3tools logisim kicad freerouting
+          ] ++ cfg.engineering.extraPackages))
 
           (lib.mkIf cfg.gaming.enable (with pkgs; [
             steam cemu dolphin-emu ryubing atlauncher heroic mangohud mangojuice waydroid wine-wayland eden steam-rom-manager
           ] ++ cfg.gaming.extraPackages))
 
           (lib.mkIf cfg.media.enable (with pkgs; [
-            google-chrome kdePackages.dolphin kdePackages.konsole kdePackages.filelight libqalculate jellyfin-desktop
+            google-chrome
           ] ++ cfg.media.extraPackages))
 
           (lib.mkIf cfg.social.enable (with pkgs; [
@@ -102,12 +106,16 @@ in
             blender inkscape gimp obs-studio
           ] ++ cfg.creativity.extraPackages))
 
-          (lib.mkIf cfg.productivity.enable (with pkgs; [
-            libreoffice-fresh xournalpp pdfarranger
-          ] ++ cfg.productivity.extraPackages))
+          (lib.mkIf cfg.documents.enable (with pkgs; [
+            libreoffice-fresh xournalpp pdfarranger typst tinymist
+          ] ++ cfg.documents.extraPackages))
+
+          (lib.mkIf cfg.system_utils.enable (with pkgs; [
+            kdePackages.dolphin kdePackages.konsole kdePackages.filelight libqalculate sshpass
+          ] ++ cfg.system_utils.extraPackages))
         ];
 
-        programs.vscode = lib.mkIf cfg.development.enable {
+        programs.vscode = lib.mkIf cfg.software_dev.enable {
           enable = true;
           package = pkgs.vscode;
         };
