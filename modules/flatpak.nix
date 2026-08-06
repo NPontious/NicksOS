@@ -24,6 +24,7 @@
       packages = [
         "org.vinegarhq.Sober"
         "org.jellyfin.JellyfinDesktop"
+        "com.usebottles.bottles"
       ];
     };
 
