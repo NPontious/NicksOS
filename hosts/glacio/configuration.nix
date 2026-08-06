@@ -136,7 +136,7 @@
 
   myAppSets = {
     profile = "gaming";
-    development.enable = true;
+    software_dev.enable = true;
   };
 
 

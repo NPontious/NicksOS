@@ -43,9 +43,9 @@
 
   myAppSets = {
     profile = "gaming";
-    development.enable = true;
-    school.enable = true;
-    productivity.enable = true;
+    software_dev.enable = true;
+    engineering.enable = true;
+    documents.enable = true;
     creativity.enable = true;
   };
 
