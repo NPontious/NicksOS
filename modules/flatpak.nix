@@ -32,6 +32,15 @@
       home.file.".var/app/org.jellyfin.JellyfinDesktop/config/mpv/mpv.conf".text = ''
         vo=gpu-next
         gpu-api=vulkan
+        deband=yes
+        deband-iterations=2
+        deband-threshold=35
+        deband-range=16
+        deband-grain=5
+        dither-depth=auto
+        dither=fruit
+        tone-mapping=bt.2390
+        target-colorspace-hint=no
       '';
     };
   };
