@@ -95,7 +95,7 @@ in
           ] ++ cfg.gaming.extraPackages))
 
           (lib.mkIf cfg.media.enable (with pkgs; [
-            google-chrome
+            google-chrome jellyfin-mpv-shim
           ] ++ cfg.media.extraPackages))
 
           (lib.mkIf cfg.social.enable (with pkgs; [
