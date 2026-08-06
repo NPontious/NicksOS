@@ -26,8 +26,42 @@
           # Uncomment and adjust if needed:
           # PUSH_LIMIT = 50; 
         };
+        
+        # Enable Forgejo Actions (CI/CD)
+        actions = {
+          ENABLED = true;
+          DEFAULT_ACTIONS_URL = "github";
+        };
+        
+        # Enable the built-in Container Registry and other package types
+        packages = {
+          ENABLED = true;
+        };
       };
     };
+
+    # Set up the Forgejo Runner for executing your workflows
+    services.gitea-actions-runner = {
+      package = pkgs.forgejo-runner;
+      instances.glacio-runner = {
+        enable = true;
+        name = "glacio-runner";
+        # Connect to the local Forgejo instance
+        url = "http://127.0.0.1:3030/";
+        
+        # Save the GLOBAL registration token into this file
+        tokenFile = "/etc/forgejo-runner-token";
+        
+        # Specify what environments this runner can provide
+        labels = [
+          "ubuntu-latest:docker://node:22-bookworm"
+          "native:host"
+        ];
+      };
+    };
+
+    # The runner needs a container backend to run 'ubuntu-latest' jobs
+    virtualisation.docker.enable = true;
 
     # Ensure the storage directory exists and has the correct permissions
     # for the Forgejo service user to read and write.

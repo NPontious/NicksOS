@@ -17,6 +17,7 @@
     ../../modules/ollama.nix
     ../../modules/flatpak.nix
     ../../modules/home-assistant.nix
+    ../../modules/forgejo.nix
   ];
 
   systemd.targets.sleep.enable = false;
@@ -151,6 +152,7 @@
     ollama.enable = true;
     medialyze.enable = true;
     home-assistant.enable = true;
+    forgejo.enable = true;
   };
 
   system.stateVersion = "25.11";
