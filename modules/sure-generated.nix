@@ -132,6 +132,7 @@
       "sure_app-storage:/rails/storage:rw"
     ];
     ports = [
+      "127.0.0.1:3000:3000/tcp"
       "100.85.234.127:3000:3000/tcp"
     ];
     dependsOn = [
