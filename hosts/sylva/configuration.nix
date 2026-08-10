@@ -7,6 +7,7 @@
     ../../modules/illogical.nix
     ../../modules/nvidia.nix
     ../../modules/flatpak.nix
+    ../../modules/ollama.nix
     ../../common.nix
   ];
 
@@ -54,6 +55,7 @@
   mySystem.tailscale.enable = true;
   mySystem.flatpak.enable = true;
   mySystem.hardware.nvidia.enable = true;
+  mySystem.services.ollama.enable = true;
 
   system.stateVersion = "25.11";
  

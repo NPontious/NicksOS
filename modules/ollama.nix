@@ -18,8 +18,10 @@
       };
       loadModels = [
         "gemma4"
+        "gemma4:31b"
         "qwen3.5:4b-q8_0"
         "qwen3.5:9b-q4_K_M"
+        "gemma4:26b-a4b-it-q4_K_M"
       ];
     };
 
