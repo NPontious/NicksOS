@@ -69,7 +69,7 @@
 
     environment.systemPackages = with pkgs; [ 
       kitty tree git net-tools wget curl
-      agenix.packages.${pkgs.system}.default
+      agenix.packages.${pkgs.stdenv.hostPlatform.system}.default
     ];
   };
 }
