@@ -88,9 +88,8 @@
 
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [ 
-    kitty tree net-tools swww openssl 
+    openssl 
     rocmPackages.rocm-smi 
-    cifs-utils 
     smartmontools appimage-run btrfs-progs 
   ];
 
