@@ -68,7 +68,7 @@
     };
 
     environment.systemPackages = with pkgs; [ 
-      kitty tree git net-tools wget curl
+      kitty tree git net-tools wget curl antigravity-cli
       agenix.packages.${pkgs.stdenv.hostPlatform.system}.default
     ];
   };
