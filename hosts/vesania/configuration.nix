@@ -19,7 +19,10 @@
   boot.kernelPackages = pkgs.linuxPackages_6_12;
   boot.resumeDevice = "/dev/disk/by-uuid/c02199a3-33fe-4688-a447-299bcd69417c";
 
-  services.logind.settings.Login.HandleLidSwitch = "suspend-then-hibernate";  
+  # If normal sleep drains too much battery, try hibernation again by:
+  # Changing HandleLidSwitch back to "suspend-then-hibernate"
+  # Adding `boot.kernelParams = [ "nokaslr" ];` to bypass the "inconsistent memory map" resume error.
+  services.logind.settings.Login.HandleLidSwitch = "suspend";  
   systemd.sleep.settings.Sleep.HibernateDelaySec = "30m";
 
   networking.hostName = "vesania";
