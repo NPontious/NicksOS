@@ -18,6 +18,7 @@
     ../../modules/flatpak.nix
     ../../modules/home-assistant.nix
     ../../modules/forgejo.nix
+    ../../modules/tandoor.nix
   ];
 
   systemd.targets.sleep.enable = false;
@@ -37,13 +38,13 @@
       description = "CyberPower PR1500LCDRT2U";
     };
     users.homeassistant = {
-      passwordFile = toString (pkgs.writeText "nut-password" "hapassword");
+      passwordFile = config.age.secrets."nut-password".path;
       upsmon = "primary";
     };
     upsmon.monitor.cyberpower = {
       system = "cyberpower@localhost";
       user = "homeassistant";
-      passwordFile = toString (pkgs.writeText "nut-password" "hapassword");
+      passwordFile = config.age.secrets."nut-password".path;
       type = "primary";
       powerValue = 1;
     };
@@ -152,8 +153,14 @@
     medialyze.enable = true;
     home-assistant.enable = true;
     forgejo.enable = true;
+    tandoor.enable = true;
   };
 
   system.stateVersion = "25.11";
- 
+
+  age.secrets."nut-password" = {
+    file = ../../secrets/nut-password.age;
+    mode = "0400";
+    owner = "nut";
+  };
 }
