@@ -36,6 +36,7 @@ in
         "google"
         "panel_custom"
         "nut"
+        "zha"
       ];
       config = {
         default_config = {};
