@@ -22,4 +22,5 @@ in
   "paperless-password.age".publicKeys = glacio_only;
   "windscribe-creds.age".publicKeys = glacio_only;
   "swiparr-env.age".publicKeys = glacio_only;
+  "nut-password.age".publicKeys = glacio_only;
 }
