@@ -11,12 +11,23 @@
       }];
     };
 
-    nat.enable = false;
+    nat = {
+      enable = true;
+      externalInterface = "wlp5s0";
+      internalInterfaces = [ "enp4s0" ];
+    };
 
     firewall = {
       enable = true;
-      trustedInterfaces = [ "docker0" "br+" ];
-      extraCommands = "iptables -A INPUT -i enp4s0 -p vrrp -j ACCEPT";
+      trustedInterfaces = [ "docker0" "br+" "enp4s0" ];
+      extraCommands = ''
+        iptables -A INPUT -i enp4s0 -p vrrp -j ACCEPT
+
+        iptables -t mangle -A POSTROUTING -o wlp5s0 -j TTL --ttl-set 64
+      '';
+      extraStopCommands = ''
+        iptables -t mangle -D POSTROUTING -o wlp5s0 -j TTL --ttl-set 64 || true
+      '';
       checkReversePath = false;
     };
   };
@@ -28,7 +39,11 @@
     settings = {
       interface = "enp4s0";
       dhcp-range = "192.168.100.50,192.168.100.150,12h";
-      dhcp-option = "option:router";
+      dhcp-option = [
+        "option:router,192.168.100.1"
+        "option:dns-server,192.168.100.1"
+      ];
+      server = [ "8.8.8.8" "1.1.1.1" ];
     };
   };
 }
