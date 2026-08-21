@@ -19,6 +19,7 @@
     ../../modules/home-assistant.nix
     ../../modules/forgejo.nix
     ../../modules/tandoor.nix
+    ../../modules/penpot-generated.nix
   ];
 
   systemd.targets.sleep.enable = false;
@@ -158,9 +159,20 @@
 
   system.stateVersion = "25.11";
 
+  systemd.services."docker-penpot-penpot-frontend" = {
+    postStart = ''
+      for i in $(seq 1 10); do
+        if ${pkgs.docker}/bin/docker exec -u root penpot-penpot-frontend ln -sf /var/www/app/css/main.css /var/www/app/css/ui.css 2>/dev/null; then
+          break
+        fi
+        sleep 1
+      done
+    '';
+  };
+
   age.secrets."nut-password" = {
     file = ../../secrets/nut-password.age;
     mode = "0400";
-    owner = "nut";
+    owner = "nutmon";
   };
 }

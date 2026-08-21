@@ -23,4 +23,5 @@ in
   "windscribe-creds.age".publicKeys = glacio_only;
   "swiparr-env.age".publicKeys = glacio_only;
   "nut-password.age".publicKeys = glacio_only;
+  "penpot-env.age".publicKeys = glacio_only;
 }
