@@ -24,4 +24,18 @@
   mySystem.hardware.intel.enable = true;
 
   system.stateVersion = "25.11"; 
+
+  fileSystems."/mnt/data" = {
+    device = "/dev/disk/by-uuid/93f7f05e-4fb7-440c-9bd8-824a23d12f45";
+    fsType = "btrfs";
+    options = [ "defaults" "nofail" ];
+  };
+
+  services.nfs.server.enable = true;
+  services.nfs.server.exports = ''
+    /mnt/data *(rw,sync,no_subtree_check)
+  '';
+  
+  # Open firewall port for NFSv4
+  networking.firewall.allowedTCPPorts = [ 2049 ];
 }
