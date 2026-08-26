@@ -33,9 +33,38 @@
 
   services.nfs.server.enable = true;
   services.nfs.server.exports = ''
-    /mnt/data *(rw,sync,no_subtree_check)
+    /mnt/data 192.168.100.0/24(rw,sync,no_subtree_check,no_root_squash)
   '';
   
-  # Open firewall port for NFSv4
+  # firewall port for NFSv4
   networking.firewall.allowedTCPPorts = [ 2049 ];
+
+  users.users.isa = {
+    isNormalUser = true;
+    description = "Wife's account";
+    extraGroups = [ config.mySystem.mediaGroup ];
+  };
+
+  services.samba = {
+    enable = true;
+    openFirewall = true;
+    settings = {
+      global = {
+        "workgroup" = "WORKGROUP";
+        "server string" = "desolo smb";
+        "security" = "user";
+      };
+      "data" = {
+        "path" = "/mnt/data";
+        "browseable" = "yes";
+        "read only" = "no";
+        "guest ok" = "no";
+        "valid users" = "nicho, isa";
+        "hide unreadable" = "yes";
+        "force group" = config.mySystem.mediaGroup;
+        "create mask" = "0660";
+        "directory mask" = "2770";
+      };
+    };
+  };
 }
