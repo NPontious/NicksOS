@@ -58,6 +58,8 @@
     HSA_OVERRIDE_GFX_VERSION = "11.0.0";
   };
 
+  boot.supportedFilesystems = [ "nfs" ];
+
   fileSystems."/mnt/storage" = {
    device = "/dev/disk/by-uuid/1bf904ce-54cf-4bf2-8193-f92266d1655a";
    fsType = "btrfs";
@@ -67,6 +69,18 @@
      "x-systemd.automount"
      "nofail"
    ];
+  };
+
+  fileSystems."/mnt/desolo-media" = {
+    device = "192.168.100.52:/mnt/data";
+    fsType = "nfs";
+    options = [
+      "nfsvers=4.2"
+      "x-systemd.automount"
+      "noauto"
+      "x-systemd.idle-timeout=600"
+      "nofail"
+    ];
   };
 
   jovian.steam = {
