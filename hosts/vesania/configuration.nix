@@ -11,6 +11,20 @@
   ];
   
   virtualisation.docker.enable = true;
+  virtualisation.waydroid.enable = true;
+
+  programs.nix-ld = {
+    enable = true;
+    libraries = with pkgs; [
+      zlib
+      zstd
+      stdenv.cc.cc.lib
+    ];
+  };
+
+  environment.systemPackages = with pkgs; [
+    android-tools
+  ];
 
   services.hardware.bolt.enable = true;
   boot.initrd.availableKernelModules = [ "thunderbolt" "xhci_pci" "nvme" "usb_storage" "sd_mod" ];
@@ -19,11 +33,17 @@
   boot.kernelPackages = pkgs.linuxPackages_6_12;
   boot.resumeDevice = "/dev/disk/by-uuid/c02199a3-33fe-4688-a447-299bcd69417c";
 
-  # If normal sleep drains too much battery, try hibernation again by:
-  # Changing HandleLidSwitch back to "suspend-then-hibernate"
-  # Adding `boot.kernelParams = [ "nokaslr" ];` to bypass the "inconsistent memory map" resume error.
-  services.logind.settings.Login.HandleLidSwitch = "suspend";  
-  systemd.sleep.settings.Sleep.HibernateDelaySec = "30m";
+  boot.kernelParams = [ "nokaslr" ];
+
+  powerManagement.enable = true;
+
+  # Disable D3cold for Intel AX211 Wi-Fi (8086:51f0) to prevent firmware hang on sleep/hibernate resume
+  services.udev.extraRules = ''
+    ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x8086", ATTR{device}=="0x51f0", ATTR{d3cold_allowed}="0"
+  '';
+
+  services.logind.settings.Login.HandleLidSwitch = "suspend-then-hibernate";  
+  systemd.sleep.settings.Sleep.HibernateDelaySec = "15m";
 
   networking.hostName = "vesania";
   networking.networkmanager.wifi.powersave = false;
