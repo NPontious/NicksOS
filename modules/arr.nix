@@ -23,7 +23,19 @@
       enable = true;
     };
 
+    systemd.services.radarr = {
+      environment.DOTNET_GCServer = "0";
+      serviceConfig.TasksMax = 250;
+    };
+
+    systemd.services.sonarr = {
+      environment.DOTNET_GCServer = "0";
+      serviceConfig.TasksMax = 250;
+    };
+
+    systemd.services.lidarr.environment.DOTNET_GCServer = "0";
     systemd.services.lidarr.serviceConfig = {
+      TasksMax = 250;
       NoNewPrivileges = true;
       
       PrivateTmp = true;
@@ -53,7 +65,9 @@
     };
 
     
+    systemd.services.prowlarr.environment.DOTNET_GCServer = "0";
     systemd.services.prowlarr.serviceConfig = {
+      TasksMax = 250;
       NoNewPrivileges = true;
       
       PrivateTmp = true;

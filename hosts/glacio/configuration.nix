@@ -80,6 +80,9 @@
       "noauto"
       "x-systemd.idle-timeout=600"
       "nofail"
+      "soft"
+      "timeo=30"
+      "retrans=2"
     ];
   };
 
@@ -165,7 +168,10 @@
     paperless.enable = true;
     arr.enable = true;
     ollama.enable = true;
-    medialyze.enable = true;
+    medialyze = {
+      enable = true;
+      mediaDir = "/mnt/desolo-media";
+    };
     home-assistant.enable = true;
     forgejo.enable = true;
     tandoor.enable = true;
