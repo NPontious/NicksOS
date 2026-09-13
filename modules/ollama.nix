@@ -15,11 +15,13 @@
       package = pkgs.ollama-vulkan;
       environmentVariables = {
         OLLAMA_IGPU_ENABLE = "1";
+        OLLAMA_KEEP_ALIVE = "1h";
       };
       loadModels = [
+        "mxbai-embed-large"
         "qwen3.5:4b-q8_0"
         "qwen3.5:9b-q4_K_M"
-        "gemma4:26b-a4b-it-q4_K_M"
+        "gemma4:latest"
       ];
     };
 

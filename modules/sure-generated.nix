@@ -12,7 +12,7 @@
 
   # Containers
   virtualisation.oci-containers.containers."sure-db" = {
-    image = "postgres:16";
+    image = "pgvector/pgvector:pg16-trixie";
     environment = {
       "POSTGRES_DB" = "sure_production";
       "POSTGRES_USER" = "sure_user";
@@ -112,9 +112,17 @@
   virtualisation.oci-containers.containers."sure-web" = {
     image = "ghcr.io/we-promise/sure:latest";
     environment = {
+      "AI_DEBUG_MODE" = "true";
+      "AI_HEALTH_PROBE_TIMEOUT" = "60";
+      "AI_RESPONSE_TIMEOUT" = "1200";
       "DB_HOST" = "db";
       "DB_PORT" = "5432";
-      "OPENAI_MODEL" = "llama3.1:8b";
+      "EMBEDDING_DIMENSIONS" = "1024";
+      "EMBEDDING_MODEL" = "mxbai-embed-large";
+      "EMBEDDING_URI_BASE" = "http://host.docker.internal:11434/v1";
+      "OPENAI_ACCESS_TOKEN" = "token-can-be-any-value-for-ollama";
+      "OPENAI_MODEL" = "gemma4:latest";
+      "OPENAI_REQUEST_TIMEOUT" = "300";
       "OPENAI_URI_BASE" = "http://host.docker.internal:11434/v1";
       "POSTGRES_DB" = "sure_production";
       "POSTGRES_USER" = "sure_user";
@@ -122,6 +130,7 @@
       "RAILS_FORCE_SSL" = "false";
       "REDIS_URL" = "redis://redis:6379/1";
       "SELF_HOSTED" = "true";
+      "VECTOR_STORE_PROVIDER" = "pgvector";
     };
     environmentFiles = [
       config.age.secrets."sure-env".path
@@ -130,6 +139,9 @@
     ];
     volumes = [
       "sure_app-storage:/rails/storage:rw"
+      "/etc/nixos/modules/patches/sophtron_entry_processor.rb:/rails/app/models/sophtron_entry/processor.rb:ro"
+      "/etc/nixos/modules/patches/sophtron_account_processor.rb:/rails/app/models/sophtron_account/processor.rb:ro"
+      "/etc/nixos/modules/patches/provider_import_adapter.rb:/rails/app/models/account/provider_import_adapter.rb:ro"
     ];
     ports = [
       "127.0.0.1:3000:3000/tcp"
@@ -183,9 +195,16 @@
   virtualisation.oci-containers.containers."sure-worker" = {
     image = "ghcr.io/we-promise/sure:latest";
     environment = {
+      "AI_DEBUG_MODE" = "true";
+      "AI_RESPONSE_TIMEOUT" = "1200";
       "DB_HOST" = "db";
       "DB_PORT" = "5432";
+      "EMBEDDING_DIMENSIONS" = "1024";
+      "EMBEDDING_MODEL" = "mxbai-embed-large";
+      "EMBEDDING_URI_BASE" = "http://host.docker.internal:11434/v1";
+      "OPENAI_ACCESS_TOKEN" = "token-can-be-any-value-for-ollama";
       "OPENAI_MODEL" = "llama3.1:8b";
+      "OPENAI_REQUEST_TIMEOUT" = "300";
       "OPENAI_URI_BASE" = "http://host.docker.internal:11434/v1";
       "POSTGRES_DB" = "sure_production";
       "POSTGRES_USER" = "sure_user";
@@ -193,6 +212,7 @@
       "RAILS_FORCE_SSL" = "false";
       "REDIS_URL" = "redis://redis:6379/1";
       "SELF_HOSTED" = "true";
+      "VECTOR_STORE_PROVIDER" = "pgvector";
     };
     environmentFiles = [
       config.age.secrets."sure-env".path
@@ -201,6 +221,9 @@
     ];
     volumes = [
       "sure_app-storage:/rails/storage:rw"
+      "/etc/nixos/modules/patches/sophtron_entry_processor.rb:/rails/app/models/sophtron_entry/processor.rb:ro"
+      "/etc/nixos/modules/patches/sophtron_account_processor.rb:/rails/app/models/sophtron_account/processor.rb:ro"
+      "/etc/nixos/modules/patches/provider_import_adapter.rb:/rails/app/models/account/provider_import_adapter.rb:ro"
     ];
     cmd = [ "bundle" "exec" "sidekiq" ];
     dependsOn = [
