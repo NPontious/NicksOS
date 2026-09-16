@@ -24,4 +24,5 @@ in
   "swiparr-env.age".publicKeys = glacio_only;
   "nut-password.age".publicKeys = glacio_only;
   "penpot-env.age".publicKeys = glacio_only;
+  "tailscale-share-env.age".publicKeys = glacio_only;
 }
