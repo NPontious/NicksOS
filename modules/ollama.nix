@@ -4,10 +4,6 @@
   options.mySystem.services.ollama.enable = lib.mkEnableOption "Ollama and Open-WebUI";
 
   config = lib.mkIf config.mySystem.services.ollama.enable {
-    systemd.tmpfiles.rules = [
-      "d /mnt/storage/ollama/models 0750 ollama ollama -"
-    ];
-
     services.ollama = {
       enable = true;
       host = "0.0.0.0";
