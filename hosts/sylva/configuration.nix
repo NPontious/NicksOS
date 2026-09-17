@@ -41,6 +41,14 @@
   mySystem.illogical.enableShell = true;
   mySystem.illogical.enableDesktop = true;
   mySystem.illogical.scale = 1;
+  mySystem.illogical.monitors = [
+    {
+      output = "DP-5";
+      mode = "3440x1440@144";
+      position = "auto";
+      scale = 1;
+    }
+  ];
 
   myAppSets = {
     profile = "gaming";

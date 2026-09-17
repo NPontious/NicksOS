@@ -8,10 +8,15 @@
       enable = true;
       host = "0.0.0.0";
       port = 11434;
-      package = pkgs.ollama-vulkan;
+      package = lib.mkDefault (
+        if config.mySystem.hardware.nvidia.enable or false
+        then pkgs.ollama-cuda
+        else pkgs.ollama-vulkan
+      );
       environmentVariables = {
-        OLLAMA_IGPU_ENABLE = "1";
         OLLAMA_KEEP_ALIVE = "1h";
+      } // lib.optionalAttrs (! (config.mySystem.hardware.nvidia.enable or false)) {
+        OLLAMA_IGPU_ENABLE = "1";
       };
       loadModels = [
         "mxbai-embed-large"
