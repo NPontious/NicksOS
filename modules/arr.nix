@@ -60,7 +60,7 @@
       
       ReadWritePaths = [
         "/var/lib/lidarr"
-        "/mnt/storage/media"
+        "/mnt/desolo-media"
       ];
     };
 
@@ -92,7 +92,6 @@
       
       ReadWritePaths = [
         "/var/lib/prowlarr"
-        "/mnt/storage/media"
       ];
     };
 
@@ -145,7 +144,6 @@
       "d /var/lib/gluetun 0750 root root -"
       "d /var/lib/qbittorrent 0750 qbittorrent ${config.mySystem.mediaGroup} -"
       "d /var/lib/qbittorrent/Downloads 0775 qbittorrent ${config.mySystem.mediaGroup} -"
-      "d /mnt/storage/media 0775 root ${config.mySystem.mediaGroup} -"
     ];
 
     users.users.qbittorrent = {
