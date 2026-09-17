@@ -164,7 +164,10 @@
   mySystem.flatpak.enable = true;
   mySystem.services = {
     jellyfin.enable = true;
-    immich.enable = true;
+    immich = {
+      enable = true;
+      shareProxy.enable = true;
+    };
     paperless.enable = true;
     arr.enable = true;
     ollama.enable = true;
