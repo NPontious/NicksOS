@@ -14,3 +14,7 @@ result-*
 .env
 *.decrypted
 *.age.dec
+
+# Local patches and uncommitted modules
+modules/patches/
+modules/sure-generated-new.nix
