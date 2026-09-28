@@ -162,6 +162,7 @@
 
   mySystem.tailscale.enable = true;
   mySystem.flatpak.enable = true;
+  mySystem.distributedBuilds.enable = true;
   mySystem.services = {
     jellyfin.enable = true;
     immich = {
