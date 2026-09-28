@@ -58,7 +58,7 @@
     users.users.${config.mySystem.mainUser} = {
       isNormalUser = true;
       description = config.mySystem.mainUser;
-      extraGroups = [ "networkmanager" "wheel" "video" "input" "render" "docker" "gamemode" config.mySystem.mediaGroup ];
+      extraGroups = [ "networkmanager" "wheel" "video" "input" "render" "docker" "gamemode" "lp" "scanner" config.mySystem.mediaGroup ];
       shell = pkgs.fish;
     };
 
@@ -69,7 +69,7 @@
     };
 
     environment.systemPackages = with pkgs; [ 
-      kitty tree git net-tools wget curl antigravity-cli
+      kitty tree git net-tools wget curl antigravity-cli claude-code
       agenix.packages.${pkgs.stdenv.hostPlatform.system}.default
     ];
   };
