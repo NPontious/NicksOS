@@ -18,6 +18,10 @@
   services.blueman.enable = true;
   services.displayManager.ly.enable = true;
 
+  # Disable suspend/resume: deep S3 suspend hangs on resume with the hybrid
+  # AMD iGPU + NVIDIA dGPU (fans at full tilt, system unresponsive until reboot).
+  systemd.targets.suspend.enable = false;
+
   boot.supportedFilesystems = [ "ntfs3" ];
 
   fileSystems."/mnt/Random" = {
@@ -64,6 +68,7 @@
   mySystem.flatpak.enable = true;
   mySystem.hardware.nvidia.enable = true;
   mySystem.services.ollama.enable = true;
+  mySystem.buildServer.enable = true;
 
   system.stateVersion = "25.11";
  

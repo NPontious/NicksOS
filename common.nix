@@ -17,6 +17,7 @@
   imports = [
     ./modules/secrets.nix
     ./modules/pkg-sets.nix
+    ./modules/distributed-builds.nix
   ];
 
   config = {

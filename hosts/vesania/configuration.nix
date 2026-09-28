@@ -68,6 +68,7 @@
   mySystem.tailscale.enable = true;
   mySystem.flatpak.enable = true;
   mySystem.hardware.intel.enable = true;
+  mySystem.distributedBuilds.enable = true;
 
   system.stateVersion = "25.11"; 
 }
