@@ -44,6 +44,10 @@
       openFirewall = false;
     };
 
+    services.udev.extraRules = ''
+      ACTION=="add|change", KERNEL=="sd[a-z]", ATTR{queue/rotational}=="1", RUN+="${pkgs.hdparm}/bin/hdparm -S 180 /dev/%k"
+    '';
+
     nixpkgs.config.allowUnfree = true;
 
     environment.shellAliases = {
