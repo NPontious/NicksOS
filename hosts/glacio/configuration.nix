@@ -202,21 +202,14 @@
                   id = "dashboard";
                   settings = {
                     "calendarURLs[]" = [
-                      "$CALENDAR_URL"
                       "$CALENDAR_URL_1"
                       "$CALENDAR_URL_2"
-                      "$CALENDAR_URL_3"
-                      "$CALENDAR_URL_4"
-                      "$CALENDAR_URL_5"
                     ];
                     "calendarColors[]" = [
                       "#3b82f6"
                       "#10b981"
-                      "#ef4444"
-                      "#f59e0b"
-                      "#8b5cf6"
-                      "#06b6d4"
                     ];
+                    timezone = "America/New_York";
                     latitude = "$LATITUDE";
                     longitude = "$LONGITUDE";
                     units = "imperial";
