@@ -241,19 +241,25 @@
         case "$EVENT" in
           AP-STA-CONNECTED*)
             MAC="''${EVENT#* }"
-            echo "Station $MAC connected to $IFNAME, waiting for IP and triggering rotate..."
+            echo "Station $MAC connected to $IFNAME, polling web server on 192.168.101.65..."
             (
-              for i in $(seq 1 30); do
-                if ping -c 1 -W 1 192.168.101.65 >/dev/null 2>&1; then
-                  echo "Station 192.168.101.65 is reachable, sending /api/rotate..."
-                  sleep 1
-                  RESP=$(curl -s --connect-timeout 5 --max-time 15 -X POST http://192.168.101.65/api/rotate || true)
+              IP="192.168.101.65"
+              EXPECTED_URL="http://192.168.101.1:8085/api/photoframe/image"
+              for i in $(seq 1 45); do
+                sleep 2
+                CFG=$(curl -s --connect-timeout 2 --max-time 5 "http://$IP/api/config" || true)
+                if [ -n "$CFG" ]; then
+                  echo "Station HTTP server online! Config: $CFG"
+                  curl -s --connect-timeout 2 --max-time 5 -X PATCH "http://$IP/api/config"                     -H "Content-Type: application/json"                     -d "{\"rotation_mode\":\"url\",\"image_url\":\"$EXPECTED_URL\"}" || true
+                  echo "Sending POST /api/rotate..."
+                  RESP=$(curl -s -S --connect-timeout 5 --max-time 45 -w "
+HTTP_STATUS:%{http_code}" -X POST "http://$IP/api/rotate" 2>&1 || true)
                   echo "Rotate response: $RESP"
                   exit 0
                 fi
-                sleep 1
+                echo "Attempt $i: waiting for http://$IP/api/config..."
               done
-              echo "Station 192.168.101.65 was not pingable within 30 seconds."
+              echo "Station $IP did not respond with HTTP server within 90s."
             ) &
             ;;
         esac
