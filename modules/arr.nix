@@ -131,6 +131,7 @@
       environment = {
         PUID = "987";
         PGID = "983";
+        UMASK = "002";
         WEBUI_PORT = "8081";
         QBITTORRENT__Session__InterfaceName = "tun0";
       };
