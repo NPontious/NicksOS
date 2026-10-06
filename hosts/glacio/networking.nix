@@ -78,14 +78,8 @@
     settings = {
       interface = [ "enp4s0" "ap0" ];
       dhcp-range = [
-        "interface:enp4s0,192.168.100.50,192.168.100.150,12h"
-        "interface:ap0,192.168.101.50,192.168.101.150,12h"
-      ];
-      dhcp-option = [
-        "interface:enp4s0,option:router,192.168.100.1"
-        "interface:enp4s0,option:dns-server,192.168.100.1"
-        "interface:ap0,option:router,192.168.101.1"
-        "interface:ap0,option:dns-server,192.168.101.1"
+        "192.168.100.50,192.168.100.150,12h"
+        "192.168.101.50,192.168.101.150,12h"
       ];
       server = [ "8.8.8.8" "1.1.1.1" ];
     };
