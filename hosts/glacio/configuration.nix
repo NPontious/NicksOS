@@ -210,9 +210,8 @@
                       "#10b981"
                     ];
                     timezone = "America/New_York";
-                    latitude = "$LATITUDE";
-                    longitude = "$LONGITUDE";
-                    units = "imperial";
+                    weatherLayout = "none";
+                    slot3Widget = "none";
                   };
                   refresh_settings = {
                     interval = 30;
