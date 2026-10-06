@@ -21,13 +21,23 @@
       url = "github:marq24/ha-fordpass";
       flake = false;
     };
+
+    inky-combo = {
+      url = "github:NPontious/Inky-Combo";
+      flake = false;
+    };
+
+    inkypi = {
+      url = "github:npontious/InkyPi";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, jovian, illogical-flake, home-manager, agenix, nix-flatpak, ha-fordpass, ... }: {
+  outputs = { self, nixpkgs, jovian, illogical-flake, home-manager, agenix, nix-flatpak, ha-fordpass, inkypi, inky-combo, ... }: {
     nixosConfigurations = {
       glacio = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = { inherit illogical-flake agenix nix-flatpak ha-fordpass; };
+        specialArgs = { inherit illogical-flake agenix nix-flatpak ha-fordpass inkypi inky-combo; };
         modules = [
           ./hosts/glacio/hardware-configuration.nix
           ./hosts/glacio/configuration.nix

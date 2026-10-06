@@ -60,6 +60,24 @@
         "type": "github"
       }
     },
+    "flake-utils": {
+      "inputs": {
+        "systems": "systems"
+      },
+      "locked": {
+        "lastModified": 1731533236,
+        "narHash": "sha256-l0KFg5HjrsfsO/JpG+r7fRrqm12kzFHyUHqHCVpMMbI=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "11707dc2f618dd54ca8739b309ec4fc024de578b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
     "ha-fordpass": {
       "flake": false,
       "locked": {
@@ -117,6 +135,43 @@
       "original": {
         "owner": "npontious",
         "repo": "illogical-flake",
+        "type": "github"
+      }
+    },
+    "inky-combo": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1782866043,
+        "narHash": "sha256-HimLofARs0ykoXofuLNGnJ8vVkedHNF9Cty535E+jFo=",
+        "owner": "NPontious",
+        "repo": "Inky-Combo",
+        "rev": "6fc0fb7b0baba392d9ad45e097237dc5f837445b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NPontious",
+        "repo": "Inky-Combo",
+        "type": "github"
+      }
+    },
+    "inkypi": {
+      "inputs": {
+        "flake-utils": "flake-utils",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1791304487,
+        "narHash": "sha256-NgiByPvhaNG6qpYMUfb96o6LNfFkc0oOFxjAa/UFnrM=",
+        "owner": "npontious",
+        "repo": "InkyPi",
+        "rev": "c039b69c427a62d9cc736b9744c53031607f1f7b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "npontious",
+        "repo": "InkyPi",
         "type": "github"
       }
     },
@@ -244,6 +299,8 @@
         "ha-fordpass": "ha-fordpass",
         "home-manager": "home-manager",
         "illogical-flake": "illogical-flake",
+        "inky-combo": "inky-combo",
+        "inkypi": "inkypi",
         "jovian": "jovian",
         "nix-flatpak": "nix-flatpak",
         "nixpkgs": "nixpkgs"
@@ -262,6 +319,21 @@
       "original": {
         "owner": "zjeffer",
         "repo": "split-monitor-workspaces",
+        "type": "github"
+      }
+    },
+    "systems": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
         "type": "github"
       }
     }
