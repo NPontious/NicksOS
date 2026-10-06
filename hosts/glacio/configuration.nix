@@ -234,8 +234,8 @@
     wantedBy = [ "multi-user.target" ];
     after = [ "hostapd.service" "network.target" ];
     path = [ pkgs.hostapd pkgs.iputils pkgs.curl pkgs.coreutils ];
-    script = ''
-      exec hostapd_cli -i ap0 -a ''${pkgs.writeShellScript "photoframe-trigger.sh" '''
+    script = let
+      triggerScript = pkgs.writeShellScript "photoframe-trigger.sh" ''
         IFNAME="$1"
         EVENT="$2"
         MAC="$3"
@@ -251,7 +251,9 @@
             done
           ) &
         fi
-      '''}
+      '';
+    in ''
+      exec hostapd_cli -i ap0 -a ${triggerScript}
     '';
     serviceConfig = {
       Restart = "always";
