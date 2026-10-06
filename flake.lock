@@ -162,11 +162,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1791307598,
-        "narHash": "sha256-xVwKQ60+UivCksTMIJdOG5XuTz1vsKbKhNd1cvRG2MI=",
+        "lastModified": 1791314438,
+        "narHash": "sha256-VbRIE6OwupEm1XjINZjbA4BHHpRFjnX/xL0Rw3sNSvo=",
         "owner": "npontious",
         "repo": "InkyPi",
-        "rev": "522b5d9740d6812c7197da7f3959a1b885078811",
+        "rev": "b3a6db25ff609c8017fa89703f4727cb9b0f39a1",
         "type": "github"
       },
       "original": {
