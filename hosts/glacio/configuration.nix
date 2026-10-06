@@ -183,6 +183,7 @@
     inkypi = {
       enable = true;
       port = 8085;
+      environmentFile = config.age.secrets."inkypi-env".path;
       extraPlugins = [ inky-combo ];
       settings = {
         name = "Glacio PhotoFrame";
@@ -199,6 +200,27 @@
               plugins = [
                 {
                   id = "dashboard";
+                  settings = {
+                    "calendarURLs[]" = [
+                      "$CALENDAR_URL"
+                      "$CALENDAR_URL_1"
+                      "$CALENDAR_URL_2"
+                      "$CALENDAR_URL_3"
+                      "$CALENDAR_URL_4"
+                      "$CALENDAR_URL_5"
+                    ];
+                    "calendarColors[]" = [
+                      "#3b82f6"
+                      "#10b981"
+                      "#ef4444"
+                      "#f59e0b"
+                      "#8b5cf6"
+                      "#06b6d4"
+                    ];
+                    latitude = "$LATITUDE";
+                    longitude = "$LONGITUDE";
+                    units = "imperial";
+                  };
                   refresh_settings = {
                     interval = 30;
                     unit = "minutes";
@@ -229,5 +251,17 @@
     file = ../../secrets/nut-password.age;
     mode = "0400";
     owner = "nutmon";
+  };
+
+  age.secrets."hostapd-inkypi-password" = {
+    file = ../../secrets/hostapd-inkypi-password.age;
+    mode = "0400";
+  };
+
+  age.secrets."inkypi-env" = {
+    file = ../../secrets/inkypi-env.age;
+    mode = "0400";
+    owner = "inkypi";
+    group = "inkypi";
   };
 }

@@ -25,4 +25,6 @@ in
   "nut-password.age".publicKeys = glacio_only;
   "penpot-env.age".publicKeys = glacio_only;
   "tailscale-share-env.age".publicKeys = glacio_only;
+  "hostapd-inkypi-password.age".publicKeys = glacio_only;
+  "inkypi-env.age".publicKeys = glacio_only;
 }
