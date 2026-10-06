@@ -237,19 +237,26 @@
       triggerScript = pkgs.writeShellScript "photoframe-trigger.sh" ''
         IFNAME="$1"
         EVENT="$2"
-        MAC="$3"
-        if [ "$EVENT" = "AP-STA-CONNECTED" ]; then
-          (
-            for i in $(seq 1 30); do
-              if ping -c 1 -W 1 192.168.101.65 >/dev/null 2>&1; then
+        echo "photoframe-auto-rotate event received on $IFNAME: $EVENT"
+        case "$EVENT" in
+          AP-STA-CONNECTED*)
+            MAC="''${EVENT#* }"
+            echo "Station $MAC connected to $IFNAME, waiting for IP and triggering rotate..."
+            (
+              for i in $(seq 1 30); do
+                if ping -c 1 -W 1 192.168.101.65 >/dev/null 2>&1; then
+                  echo "Station 192.168.101.65 is reachable, sending /api/rotate..."
+                  sleep 1
+                  RESP=$(curl -s --connect-timeout 5 --max-time 15 -X POST http://192.168.101.65/api/rotate || true)
+                  echo "Rotate response: $RESP"
+                  exit 0
+                fi
                 sleep 1
-                curl -s --connect-timeout 5 --max-time 15 -X POST http://192.168.101.65/api/rotate || true
-                exit 0
-              fi
-              sleep 1
-            done
-          ) &
-        fi
+              done
+              echo "Station 192.168.101.65 was not pingable within 30 seconds."
+            ) &
+            ;;
+        esac
       '';
     in ''
       exec hostapd_cli -i ap0 -a ${triggerScript}
