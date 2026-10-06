@@ -229,6 +229,36 @@
 
   system.stateVersion = "25.11";
 
+  systemd.services.photoframe-auto-rotate = {
+    description = "Auto-rotate PhotoFrame on connect";
+    wantedBy = [ "multi-user.target" ];
+    after = [ "hostapd.service" "network.target" ];
+    path = [ pkgs.hostapd pkgs.iputils pkgs.curl pkgs.coreutils ];
+    script = ''
+      exec hostapd_cli -i ap0 -a ''${pkgs.writeShellScript "photoframe-trigger.sh" '''
+        IFNAME="$1"
+        EVENT="$2"
+        MAC="$3"
+        if [ "$EVENT" = "AP-STA-CONNECTED" ]; then
+          (
+            for i in $(seq 1 30); do
+              if ping -c 1 -W 1 192.168.101.65 >/dev/null 2>&1; then
+                sleep 1
+                curl -s --connect-timeout 5 --max-time 15 -X POST http://192.168.101.65/api/rotate || true
+                exit 0
+              fi
+              sleep 1
+            done
+          ) &
+        fi
+      '''}
+    '';
+    serviceConfig = {
+      Restart = "always";
+      RestartSec = "5s";
+    };
+  };
+
   systemd.services."docker-penpot-penpot-frontend" = {
     postStart = ''
       for i in $(seq 1 10); do
