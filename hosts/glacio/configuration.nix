@@ -20,6 +20,7 @@
     ../../modules/forgejo.nix
     ../../modules/tandoor.nix
     ../../modules/penpot-generated.nix
+    ../../modules/inkypi.nix
   ];
 
   systemd.targets.sleep.enable = false;
@@ -179,6 +180,7 @@
     home-assistant.enable = true;
     forgejo.enable = true;
     tandoor.enable = true;
+    inkypi.enable = true;
   };
 
   system.stateVersion = "25.11";
