@@ -1,4 +1,4 @@
-{ config, pkgs, illogical-flake, hyprland, lib, ... }:
+{ config, pkgs, illogical-flake, hyprland, lib, inky-combo, ... }:
 
 {
   imports = [ 
@@ -180,7 +180,36 @@
     home-assistant.enable = true;
     forgejo.enable = true;
     tandoor.enable = true;
-    inkypi.enable = true;
+    inkypi = {
+      enable = true;
+      port = 8085;
+      extraPlugins = [ inky-combo ];
+      settings = {
+        name = "Glacio PhotoFrame";
+        display_type = "photoframe";
+        model = "waveshare_13_3";
+        resolution = [ 1600 1200 ];
+        orientation = 0;
+        playlist_config = {
+          playlists = [
+            {
+              name = "Default";
+              start_time = "00:00";
+              end_time = "24:00";
+              plugins = [
+                {
+                  id = "dashboard";
+                  refresh_settings = {
+                    interval = 30;
+                    unit = "minutes";
+                  };
+                }
+              ];
+            }
+          ];
+        };
+      };
+    };
   };
 
   system.stateVersion = "25.11";
