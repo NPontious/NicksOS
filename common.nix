@@ -52,7 +52,6 @@
 
     environment.shellAliases = {
       config = "sudo nano /etc/nixos/hosts/${config.networking.hostName}/configuration.nix";
-      build = "sudo nixos-rebuild switch --flake '/etc/nixos#${config.networking.hostName}'";
     };
 
     programs.fish.enable = true;
@@ -75,6 +74,18 @@
     environment.systemPackages = with pkgs; [ 
       kitty tree git net-tools wget curl antigravity-cli claude-code
       agenix.packages.${pkgs.stdenv.hostPlatform.system}.default
+      (writeShellScriptBin "build" ''
+        BUILD_HOST_ARGS=()
+        ARGS=()
+        for arg in "$@"; do
+          if [ "$arg" = "-r" ]; then
+            BUILD_HOST_ARGS=(--build-host sylva)
+          else
+            ARGS+=("$arg")
+          fi
+        done
+        exec sudo nixos-rebuild switch --flake "/etc/nixos#${config.networking.hostName}" "''${BUILD_HOST_ARGS[@]}" "''${ARGS[@]}"
+      '')
     ];
   };
 }
