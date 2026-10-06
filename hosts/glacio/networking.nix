@@ -62,7 +62,7 @@
         ssid = "inkypi-net";
         authentication = {
           mode = "wpa2-sha1";
-          wpaPassword = "Sn1J1mZPitus9hJrkp8N";
+          wpaPasswordFile = config.age.secrets."hostapd-inkypi-password".path;
         };
         settings = {
           ignore_broadcast_ssid = pkgs.lib.mkForce 1;
