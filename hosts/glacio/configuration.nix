@@ -250,6 +250,8 @@
                 CFG=$(curl -s --connect-timeout 2 --max-time 5 "http://$IP/api/config" || true)
                 if [ -n "$CFG" ]; then
                   echo "Station HTTP server online! Config: $CFG"
+                  BAT=$(curl -s --connect-timeout 2 --max-time 5 "http://$IP/api/battery" || true)
+                  echo "Station Battery Telemetry: $BAT"
                   curl -s --connect-timeout 2 --max-time 5 -X PATCH "http://$IP/api/config"                     -H "Content-Type: application/json"                     -d "{\"rotation_mode\":\"url\",\"image_url\":\"$EXPECTED_URL\"}" || true
                   echo "Sending POST /api/rotate..."
                   RESP=$(curl -s -S --connect-timeout 5 --max-time 45 -w "
