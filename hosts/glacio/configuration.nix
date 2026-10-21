@@ -21,6 +21,7 @@
     ../../modules/tandoor.nix
     ../../modules/penpot-generated.nix
     ../../modules/inkypi.nix
+    ../../modules/freellmapi-generated.nix
   ];
 
   systemd.targets.sleep.enable = false;

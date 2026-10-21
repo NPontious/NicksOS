@@ -327,6 +327,8 @@
       RemainAfterExit = true;
       ExecStop = "docker network rm -f penpot_penpot";
     };
+    after = [ "docker.service" "docker.socket" ];
+    wants = [ "docker.service" "docker.socket" ];
     script = ''
       docker network inspect penpot_penpot || docker network create penpot_penpot
     '';
@@ -342,6 +344,8 @@
       Type = "oneshot";
       RemainAfterExit = true;
     };
+    after = [ "docker.service" "docker.socket" ];
+    wants = [ "docker.service" "docker.socket" ];
     script = ''
       docker volume inspect penpot_penpot_assets || docker volume create penpot_penpot_assets
     '';
@@ -355,6 +359,8 @@
       Type = "oneshot";
       RemainAfterExit = true;
     };
+    after = [ "docker.service" "docker.socket" ];
+    wants = [ "docker.service" "docker.socket" ];
     script = ''
       docker volume inspect penpot_penpot_postgres_v15 || docker volume create penpot_penpot_postgres_v15
     '';
