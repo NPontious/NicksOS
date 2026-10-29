@@ -80,7 +80,8 @@
 
     programs.fish.enable = true;
 
-    users.groups.${config.mySystem.mediaGroup} = { };
+    # Pinned: NFS between glacio and desolo compares numeric IDs.
+    users.groups.${config.mySystem.mediaGroup}.gid = 983;
 
     users.users.${config.mySystem.mainUser} = {
       isNormalUser = true;

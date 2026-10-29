@@ -83,6 +83,8 @@
       ];
       dhcp-host = [
         "44:b1:76:b0:88:d8,192.168.101.65,Calendar"
+        # glacio mounts desolo's NFS export by this address
+        "f4:6b:8c:90:2f:70,192.168.100.52,desolo"
       ];
       server = [ "8.8.8.8" "1.1.1.1" ];
     };

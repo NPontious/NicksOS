@@ -33,8 +33,10 @@
   };
 
   services.nfs.server.enable = true;
+  # Only glacio (its LAN address) mounts this. root_squash is the default:
+  # the arr services write as their own users via the shared media group.
   services.nfs.server.exports = ''
-    /mnt/data 192.168.100.0/24(rw,sync,no_subtree_check,no_root_squash)
+    /mnt/data 192.168.100.1(rw,sync,no_subtree_check)
   '';
   
   # firewall port for NFSv4
