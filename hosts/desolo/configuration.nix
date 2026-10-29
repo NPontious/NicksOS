@@ -7,6 +7,7 @@
     ../../modules/tailscale.nix
     ../../modules/illogical.nix
     ../../modules/intel.nix
+    ./backup.nix
   ];
 
   networking.hostName = "desolo";

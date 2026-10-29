@@ -11,6 +11,7 @@
     ../../modules/paperless.nix
     ../../modules/medialyze.nix
     ./networking.nix
+    ./backup.nix
     ../../modules/sure-generated.nix
     ../../modules/swiparr-generated.nix
     ../../modules/arr.nix

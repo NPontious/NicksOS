@@ -12,6 +12,8 @@ let
   # Groups
   all_hosts = admins ++ hosts;
   glacio_only = admins ++ [ glacio_host ];
+  desolo_only = admins ++ [ desolo_host ];
+  backup_hosts = admins ++ [ glacio_host desolo_host ];
 in
 {
   "postgres-password.age".publicKeys = glacio_only;
@@ -29,4 +31,7 @@ in
   "inkypi-env.age".publicKeys = glacio_only;
   "forgejo-runner-token.age".publicKeys = glacio_only;
   "freellmapi-env.age".publicKeys = glacio_only;
+  "restic-glacio-repository.age".publicKeys = glacio_only;
+  "restic-password.age".publicKeys = backup_hosts;
+  "restic-server-htpasswd.age".publicKeys = desolo_only;
 }
