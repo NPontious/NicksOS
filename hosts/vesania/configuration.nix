@@ -34,21 +34,26 @@
   boot.kernelPackages = pkgs.linuxPackages_6_12;
   boot.resumeDevice = "/dev/disk/by-uuid/c02199a3-33fe-4688-a447-299bcd69417c";
 
-  boot.kernelParams = [ "nokaslr" "pcie_aspm=force" ];
+  boot.kernelParams = [ "nokaslr" ];
 
   powerManagement.enable = true;
   services.power-profiles-daemon.enable = true;
   services.thermald.enable = true;
 
   services.udev.extraRules = ''
-    ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x8086", ATTR{device}=="0x51f0", ATTR{d3cold_allowed}="0"
+    ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x8086", ATTR{device}=="0x51f0", ATTR{d3cold_allowed}="0", ATTR{power/control}="on"
+  '';
+
+  boot.extraModprobeConfig = ''
+    options iwlmvm power_scheme=1
+    options iwlwifi power_save=0 uapsd_disable=3
   '';
 
   services.logind.settings.Login.HandleLidSwitch = "suspend";
   services.logind.settings.Login.HandleLidSwitchExternalPower = "suspend";
 
   networking.hostName = "vesania";
-  networking.networkmanager.wifi.powersave = true;
+  networking.networkmanager.wifi.powersave = false;
 
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
