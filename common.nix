@@ -39,6 +39,17 @@
 
     networking.networkmanager.enable = true;
 
+    networking.getaddrinfo = {
+      enable = true;
+      precedence = {
+        "::ffff:0:0/96" = 100;
+        "::/0" = 40;
+        "::1/128" = 50;
+        "::/96" = 20;
+        "2002::/16" = 30;
+      };
+    };
+
     services.openssh = {
       enable = true;
       openFirewall = false;
