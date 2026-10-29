@@ -39,6 +39,12 @@
 
     networking.networkmanager.enable = true;
 
+    networking.hosts = {
+      "100.85.234.127" = [ "glacio" "glacio.tail4a2d4d.ts.net" ];
+      "100.88.181.11" = [ "sylva" "sylva.tail4a2d4d.ts.net" ];
+      "100.126.152.28" = [ "desolo" "desolo.tail4a2d4d.ts.net" ];
+    };
+
     networking.getaddrinfo = {
       enable = true;
       precedence = {
