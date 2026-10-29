@@ -18,7 +18,7 @@
       "POSTGRES_USER" = "sure_user";
     };
     environmentFiles = [
-      "/var/lib/sure/sure-db-secrets"
+      config.age.secrets."postgres-password".path
     ];
     volumes = [
       "sure_postgres-data:/var/lib/postgresql/data:rw"
@@ -40,23 +40,6 @@
       RestartSec = lib.mkOverride 90 "100ms";
       RestartSteps = lib.mkOverride 90 9;
     };
-    preStart = ''
-      mkdir -p /var/lib/sure
-      VAL=$(cat ${config.age.secrets."postgres-password".path} | tr -d '\n')
-      if [ -z "$VAL" ]; then
-        if [ ! -f /var/lib/sure/sure-db-secrets ] || ! grep -q "POSTGRES_PASSWORD=." /var/lib/sure/sure-db-secrets; then
-          VAL=$(${pkgs.openssl}/bin/openssl rand -hex 32)
-          echo "POSTGRES_PASSWORD=$VAL" > /var/lib/sure/sure-db-secrets
-        fi
-      else
-        # Ensure it's in the format POSTGRES_PASSWORD=...
-        if [[ "$VAL" == *"="* ]]; then
-          echo "$VAL" > /var/lib/sure/sure-db-secrets
-        else
-          echo "POSTGRES_PASSWORD=$VAL" > /var/lib/sure/sure-db-secrets
-        fi
-      fi
-    '';
     after = [
       "docker-network-sure_sure_net.service"
       "docker-volume-sure_postgres-data.service"
@@ -134,8 +117,8 @@
     };
     environmentFiles = [
       config.age.secrets."sure-env".path
-      "/var/lib/sure/sure-db-secrets"
-      "/var/lib/sure/sure-web-secrets"
+      config.age.secrets."postgres-password".path
+      config.age.secrets."secret-key-base".path
     ];
     volumes = [
       "sure_app-storage:/rails/storage:rw"
@@ -165,18 +148,6 @@
       RestartSec = lib.mkOverride 90 "100ms";
       RestartSteps = lib.mkOverride 90 9;
     };
-    preStart = ''
-      mkdir -p /var/lib/sure
-      VAL=$(cat ${config.age.secrets."secret-key-base".path} | tr -d '\n')
-      if [ -z "$VAL" ]; then
-        if [ ! -f /var/lib/sure/sure-web-secrets ] || ! grep -q "SECRET_KEY_BASE=." /var/lib/sure/sure-web-secrets; then
-          VAL=$(${pkgs.openssl}/bin/openssl rand -hex 64)
-          echo "SECRET_KEY_BASE=$VAL" > /var/lib/sure/sure-web-secrets
-        fi
-      else
-        echo "SECRET_KEY_BASE=$VAL" > /var/lib/sure/sure-web-secrets
-      fi
-    '';
     after = [
       "docker-network-sure_sure_net.service"
       "docker-volume-sure_app-storage.service"
@@ -216,8 +187,8 @@
     };
     environmentFiles = [
       config.age.secrets."sure-env".path
-      "/var/lib/sure/sure-db-secrets"
-      "/var/lib/sure/sure-web-secrets"
+      config.age.secrets."postgres-password".path
+      config.age.secrets."secret-key-base".path
     ];
     volumes = [
       "sure_app-storage:/rails/storage:rw"
@@ -244,18 +215,6 @@
       RestartSec = lib.mkOverride 90 "100ms";
       RestartSteps = lib.mkOverride 90 9;
     };
-    preStart = ''
-      mkdir -p /var/lib/sure
-      VAL=$(cat ${config.age.secrets."secret-key-base".path} | tr -d '\n')
-      if [ -z "$VAL" ]; then
-        if [ ! -f /var/lib/sure/sure-web-secrets ] || ! grep -q "SECRET_KEY_BASE=." /var/lib/sure/sure-web-secrets; then
-          VAL=$(${pkgs.openssl}/bin/openssl rand -hex 64)
-          echo "SECRET_KEY_BASE=$VAL" > /var/lib/sure/sure-web-secrets
-        fi
-      else
-        echo "SECRET_KEY_BASE=$VAL" > /var/lib/sure/sure-web-secrets
-      fi
-    '';
     after = [
       "docker-network-sure_sure_net.service"
       "docker-volume-sure_app-storage.service"
@@ -343,6 +302,8 @@
     wantedBy = [ "multi-user.target" ];
   };
 
+  # postgres-password and secret-key-base are docker env files
+  # (POSTGRES_PASSWORD=... / SECRET_KEY_BASE=...), passed to the containers as-is.
   age.secrets = {
     "postgres-password" = {
       file = ../secrets/postgres-password.age;
