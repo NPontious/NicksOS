@@ -107,7 +107,7 @@ in
           ] ++ cfg.creativity.extraPackages))
 
           (lib.mkIf cfg.documents.enable (with pkgs; [
-            libreoffice-fresh xournalpp pdfarranger typst tinymist
+            libreoffice xournalpp pdfarranger typst tinymist
           ] ++ cfg.documents.extraPackages))
 
           (lib.mkIf cfg.system_utils.enable (with pkgs; [
