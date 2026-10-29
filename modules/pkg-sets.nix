@@ -87,7 +87,7 @@ in
           ] ++ cfg.software_dev.extraPackages))
 
           (lib.mkIf cfg.engineering.enable (with pkgs; [
-            ltspice lc3tools logisim kicad freerouting
+            ltspice lc3tools logisim kicad freerouting ghidra
           ] ++ cfg.engineering.extraPackages))
 
           (lib.mkIf cfg.gaming.enable (with pkgs; [
