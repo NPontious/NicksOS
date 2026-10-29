@@ -65,6 +65,13 @@
       ACTION=="add|change", KERNEL=="sd[a-z]", ATTR{queue/rotational}=="1", RUN+="${pkgs.hdparm}/bin/hdparm -S 180 /dev/%k"
     '';
 
+    # Disk health monitoring. "-n standby,q" skips checks on spun-down disks so
+    # smartd doesn't undo the spindown above. Weekly short / monthly long self-tests.
+    services.smartd = {
+      enable = true;
+      defaults.autodetected = "-a -n standby,q -s (S/../../7/03|L/../01/./04)";
+    };
+
     nixpkgs.config.allowUnfree = true;
 
     environment.shellAliases = {
