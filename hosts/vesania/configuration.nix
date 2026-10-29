@@ -83,6 +83,7 @@
   myAppSets = {
     profile = "laptop";
     gaming.enable = true;
+    creativity.enable = true;
   };
 
   mySystem.tailscale.enable = true;
