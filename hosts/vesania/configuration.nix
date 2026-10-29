@@ -70,6 +70,7 @@
   # Printing & Scanning Support
   services.printing = {
     enable = true;
+    browsed.enable = false;
     drivers = with pkgs; [ hplip ];
   };
   services.avahi = {
