@@ -129,8 +129,8 @@
         "--network=container:gluetun"
       ];
       environment = {
-        PUID = "987";
-        PGID = "983";
+        PUID = toString config.users.users.qbittorrent.uid;
+        PGID = toString config.users.groups.${config.mySystem.mediaGroup}.gid;
         UMASK = "002";
         WEBUI_PORT = "8081";
         QBITTORRENT__Session__InterfaceName = "tun0";
@@ -148,6 +148,7 @@
     ];
 
     users.users.qbittorrent = {
+      uid = 987;
       isSystemUser = true;
       group = config.mySystem.mediaGroup;
       description = "qBittorrent User";
