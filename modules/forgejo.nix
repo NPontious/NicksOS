@@ -14,7 +14,13 @@
         server = {
           HTTP_PORT = 3030;
         };
-        
+
+        # Single-user mirror: anyone who can sign up can run workflows on the
+        # runner below, which has docker (= root) access.
+        service = {
+          DISABLE_REGISTRATION = true;
+        };
+
         # Mirroring settings
         mirror = {
           # By default, push mirrors are enabled, but we make sure they are not disabled.
@@ -49,8 +55,8 @@
         # Connect to the local Forgejo instance
         url = "http://127.0.0.1:3030/";
         
-        # Save the GLOBAL registration token into this file
-        tokenFile = "/etc/forgejo-runner-token";
+        # GLOBAL registration token (bare token, no TOKEN= prefix)
+        tokenFile = config.age.secrets."forgejo-runner-token".path;
         
         # Specify what environments this runner can provide
         labels = [
@@ -68,5 +74,10 @@
     systemd.tmpfiles.rules = [
       "d /mnt/storage/Git 0750 forgejo forgejo - -"
     ];
+
+    age.secrets."forgejo-runner-token" = {
+      file = ../secrets/forgejo-runner-token.age;
+      mode = "0400";
+    };
   };
 }

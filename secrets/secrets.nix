@@ -27,5 +27,6 @@ in
   "tailscale-share-env.age".publicKeys = glacio_only;
   "hostapd-inkypi-password.age".publicKeys = glacio_only;
   "inkypi-env.age".publicKeys = glacio_only;
+  "forgejo-runner-token.age".publicKeys = glacio_only;
   "freellmapi-env.age".publicKeys = glacio_only;
 }
