@@ -47,22 +47,22 @@
     };
 
     # Set up the Forgejo Runner for executing your workflows
-    services.gitea-actions-runner = {
-      package = pkgs.forgejo-runner;
+    services.forgejo-runner = {
       instances.glacio-runner = {
         enable = true;
-        name = "glacio-runner";
-        # Connect to the local Forgejo instance
-        url = "http://127.0.0.1:3030/";
-        
-        # GLOBAL registration token (bare token, no TOKEN= prefix)
-        tokenFile = config.age.secrets."forgejo-runner-token".path;
-        
-        # Specify what environments this runner can provide
-        labels = [
-          "ubuntu-latest:docker://node:22-bookworm"
-          "native:host"
-        ];
+        settings = {
+          # Connect to the local Forgejo instance
+          server.connections.default = {
+            url = "http://127.0.0.1:3030/";
+            uuid = "ba33cb0e-92b1-415b-9380-f8d2af6d2593";
+          };
+          # Specify what environments this runner can provide
+          runner.labels = [
+            "ubuntu-latest:docker://node:22-bookworm"
+            "native:host"
+          ];
+        };
+        secrets.server.connections.default.token_url = config.age.secrets."forgejo-runner-token".path;
       };
     };
 
