@@ -34,5 +34,18 @@
         OLLAMA_BASE_URL = "http://127.0.0.1:11434";
       };
     };
+
+    nixpkgs.overlays = [
+      (final: prev: {
+        pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
+          (pyFinal: pyPrev: {
+            posthog = pyPrev.posthog.overridePythonAttrs (old: {
+              meta = old.meta // { broken = false; };
+              doCheck = false;
+            });
+          })
+        ];
+      })
+    ];
   };
 }
