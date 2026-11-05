@@ -49,6 +49,23 @@
     options iwlwifi power_save=0 uapsd_disable=3
   '';
 
+  boot.supportedFilesystems = [ "nfs" ];
+
+  fileSystems."/mnt/roms" = {
+    device = "100.126.152.28:/mnt/roms";
+    fsType = "nfs";
+    options = [
+      "nfsvers=4.2"
+      "x-systemd.automount"
+      "noauto"
+      "x-systemd.idle-timeout=600"
+      "nofail"
+      "soft"
+      "timeo=30"
+      "retrans=2"
+    ];
+  };
+
   services.logind.settings.Login.HandleLidSwitch = "suspend";
   services.logind.settings.Login.HandleLidSwitchExternalPower = "suspend";
 

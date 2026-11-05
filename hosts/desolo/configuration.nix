@@ -33,11 +33,18 @@
     options = [ "defaults" "nofail" ];
   };
 
+  fileSystems."/mnt/roms" = {
+    device = "/dev/disk/by-label/roms";
+    fsType = "ext4";
+    options = [ "defaults" "noatime" "nofail" ];
+  };
+
   services.nfs.server.enable = true;
   # Only glacio (its LAN address) mounts this. root_squash is the default:
   # the arr services write as their own users via the shared media group.
   services.nfs.server.exports = ''
     /mnt/data 192.168.100.1(rw,sync,no_subtree_check)
+    /mnt/roms 192.168.100.0/24(rw,sync,no_subtree_check) 192.168.101.0/24(rw,sync,no_subtree_check) 100.64.0.0/10(rw,sync,no_subtree_check)
   '';
   
   # firewall port for NFSv4
@@ -68,6 +75,17 @@
         "force group" = config.mySystem.mediaGroup;
         "create mask" = "0660";
         "directory mask" = "2770";
+      };
+      "roms" = {
+        "path" = "/mnt/roms";
+        "browseable" = "yes";
+        "read only" = "no";
+        "guest ok" = "no";
+        "valid users" = "nicho, isa";
+        "hide unreadable" = "yes";
+        "force group" = config.mySystem.mediaGroup;
+        "create mask" = "0664";
+        "directory mask" = "2775";
       };
     };
   };

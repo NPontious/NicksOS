@@ -89,6 +89,21 @@
     ];
   };
 
+  fileSystems."/mnt/roms" = {
+    device = "192.168.100.52:/mnt/roms";
+    fsType = "nfs";
+    options = [
+      "nfsvers=4.2"
+      "x-systemd.automount"
+      "noauto"
+      "x-systemd.idle-timeout=600"
+      "nofail"
+      "soft"
+      "timeo=30"
+      "retrans=2"
+    ];
+  };
+
   jovian.steam = {
     enable = true;
     autoStart = true;
