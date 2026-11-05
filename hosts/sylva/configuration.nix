@@ -22,7 +22,7 @@
   # AMD iGPU + NVIDIA dGPU (fans at full tilt, system unresponsive until reboot).
   systemd.targets.suspend.enable = false;
 
-  boot.supportedFilesystems = [ "ntfs3" ];
+  boot.supportedFilesystems = [ "ntfs3" "nfs" ];
 
   fileSystems."/mnt/Random" = {
     device = "/dev/disk/by-uuid/20763881763859AC";
@@ -40,6 +40,21 @@
     device = "/dev/disk/by-uuid/6498762D9875FE3C";
     fsType = "ntfs3";
     options = [ "rw" "nofail" "x-gvfs-show" "exec" ];
+  };
+
+  fileSystems."/mnt/roms" = {
+    device = "100.126.152.28:/mnt/roms";
+    fsType = "nfs";
+    options = [
+      "nfsvers=4.2"
+      "x-systemd.automount"
+      "noauto"
+      "x-systemd.idle-timeout=600"
+      "nofail"
+      "soft"
+      "timeo=30"
+      "retrans=2"
+    ];
   };
 
   mySystem.illogical.enableShell = true;
