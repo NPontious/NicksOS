@@ -40,6 +40,7 @@ in
       ];
       config = {
         default_config = {};
+        automation = "!include automations.yaml";
         frontend = {
           themes = "!include_dir_merge_named themes";
         };
