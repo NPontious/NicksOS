@@ -13,6 +13,7 @@
   # Containers
   virtualisation.oci-containers.containers."tradingagents-tradingagents" = {
     image = "compose2nix/tradingagents-tradingagents";
+    autoStart = false;
     environment = {
       "TRADINGAGENTS_LLM_PROVIDER" = "openai_compatible";
       "TRADINGAGENTS_LLM_BACKEND_URL" = "http://host.docker.internal:3001/v1";
@@ -45,12 +46,6 @@
     requires = [
       "docker-network-tradingagents_default.service"
       "docker-volume-tradingagents_tradingagents_data.service"
-    ];
-    partOf = [
-      "docker-compose-tradingagents-root.target"
-    ];
-    wantedBy = [
-      "docker-compose-tradingagents-root.target"
     ];
   };
 
