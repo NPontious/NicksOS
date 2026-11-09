@@ -23,6 +23,8 @@
     ../../modules/penpot-generated.nix
     ../../modules/inkypi.nix
     ../../modules/freellmapi-generated.nix
+    ../../modules/tradingagents-generated.nix
+    ../../modules/tradingagents-briefing.nix
   ];
 
   systemd.targets.sleep.enable = false;
@@ -40,6 +42,9 @@
       driver = "usbhid-ups";
       port = "auto";
       description = "CyberPower PR1500LCDRT2U";
+      directives = [
+        "pollonly"
+      ];
     };
     users.homeassistant = {
       passwordFile = config.age.secrets."nut-password".path;
