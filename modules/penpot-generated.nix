@@ -12,8 +12,9 @@
 
   # Containers
   virtualisation.oci-containers.containers."penpot-penpot-backend" = {
-    image = "penpotapp/backend:2.16";
+    image = "penpotapp/backend:latest";
     environment = {
+      "JVM_OPTS" = "-XX:G1PeriodicGCInterval=60000 -XX:MaxHeapFreeRatio=40 -XX:MinHeapFreeRatio=20 -XX:SoftMaxHeapSize=1g";
       "PENPOT_DATABASE_URI" = "postgresql://penpot-postgres/penpot";
       "PENPOT_DATABASE_USERNAME" = "penpot";
       "PENPOT_FLAGS" = "disable-email-verification enable-smtp enable-prepl-server disable-secure-session-cookies enable-mcp";
@@ -78,7 +79,7 @@
     ];
   };
   virtualisation.oci-containers.containers."penpot-penpot-exporter" = {
-    image = "penpotapp/exporter:2.16";
+    image = "penpotapp/exporter:latest";
     environment = {
       "PENPOT_INTERNAL_URI" = "http://penpot-frontend:8080";
       "PENPOT_PUBLIC_URI" = "http://glacio:9001";
@@ -123,7 +124,7 @@
     ];
   };
   virtualisation.oci-containers.containers."penpot-penpot-frontend" = {
-    image = "penpotapp/frontend:2.16";
+    image = "penpotapp/frontend:latest";
     environment = {
       "PENPOT_FLAGS" = "disable-email-verification enable-smtp enable-prepl-server disable-secure-session-cookies enable-mcp";
       "PENPOT_HTTP_SERVER_MAX_BODY_SIZE" = "367001600";
@@ -203,7 +204,7 @@
     ];
   };
   virtualisation.oci-containers.containers."penpot-penpot-mcp" = {
-    image = "penpotapp/mcp:2.16";
+    image = "penpotapp/mcp:latest";
     log-driver = "journald";
     extraOptions = [
       "--network-alias=penpot-mcp"
