@@ -42,6 +42,21 @@ in
       };
     })
 
+    (lib.mkIf (!config.mySystem.buildServer.enable) {
+      programs.ssh = {
+        knownHosts = {
+          sylva = {
+            hostNames = [ "sylva" ];
+            publicKey = sylvaHostPublicKey;
+          };
+        };
+        extraConfig = ''
+          Host sylva
+            IdentityFile /etc/ssh/ssh_host_ed25519_key
+        '';
+      };
+    })
+
     (lib.mkIf config.mySystem.distributedBuilds.enable {
       nix = {
         distributedBuilds = true;
@@ -62,13 +77,6 @@ in
         extraOptions = ''
           builders-use-substitutes = true
         '';
-      };
-
-      programs.ssh.knownHosts = {
-        sylva = {
-          hostNames = [ "sylva" ];
-          publicKey = sylvaHostPublicKey;
-        };
       };
     })
   ];
