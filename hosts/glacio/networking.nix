@@ -40,6 +40,8 @@
     };
   };
 
+  networking.wireless.interfaces = [ "wlp5s0" ];
+
   systemd.services.create-ap0 = {
     description = "Create virtual AP interface ap0 for hostapd";
     before = [ "hostapd.service" "network-addresses-ap0.service" ];
