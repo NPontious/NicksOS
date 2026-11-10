@@ -16,6 +16,7 @@ let
   backup_hosts = admins ++ [ glacio_host desolo_host ];
 in
 {
+  "bank-alert-bridge-env.age".publicKeys = glacio_only;
   "postgres-password.age".publicKeys = glacio_only;
   "openai-access-token.age".publicKeys = all_hosts;
   "webui-secret-key.age".publicKeys = glacio_only;

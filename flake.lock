@@ -20,6 +20,26 @@
         "type": "github"
       }
     },
+    "bank-alert-bridge": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1794350758,
+        "narHash": "sha256-dbLhQpjzMaK4yzsd4q1ZavZsJqXHT6y57+l2k6eZ2Ms=",
+        "ref": "refs/heads/main",
+        "rev": "94d1fbc86d0b608eda6eb02f7100690ee65b05e6",
+        "revCount": 7,
+        "type": "git",
+        "url": "github:NPontious/bank-alert-bridge"
+      },
+      "original": {
+        "type": "git",
+        "url": "github:NPontious/bank-alert-bridge"
+      }
+    },
     "dotfiles": {
       "flake": false,
       "locked": {
@@ -295,6 +315,7 @@
     "root": {
       "inputs": {
         "agenix": "agenix",
+        "bank-alert-bridge": "bank-alert-bridge",
         "ha-fordpass": "ha-fordpass",
         "home-manager": "home-manager",
         "illogical-flake": "illogical-flake",

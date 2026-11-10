@@ -25,6 +25,7 @@
     ../../modules/freellmapi-generated.nix
     ../../modules/tradingagents-generated.nix
     ../../modules/tradingagents-briefing.nix
+    ../../modules/bank-alert-bridge.nix
   ];
 
   systemd.targets.sleep.enable = false;
@@ -202,6 +203,11 @@
     home-assistant.enable = true;
     forgejo.enable = true;
     tandoor.enable = true;
+    bank-alert-bridge = {
+      enable = true;
+      port = 8088;
+      environmentFile = config.age.secrets."bank-alert-bridge-env".path;
+    };
     inkypi = {
       enable = true;
       port = 8085;
@@ -324,5 +330,12 @@ HTTP_STATUS:%{http_code}" -X POST "http://$IP/api/rotate" 2>&1 || true)
     mode = "0400";
     owner = "inkypi";
     group = "inkypi";
+  };
+
+  age.secrets."bank-alert-bridge-env" = {
+    file = ../../secrets/bank-alert-bridge-env.age;
+    mode = "0400";
+    owner = "bank-alert-bridge";
+    group = "bank-alert-bridge";
   };
 }

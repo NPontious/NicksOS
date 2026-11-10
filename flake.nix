@@ -31,13 +31,18 @@
       url = "git+https://github.com/npontious/InkyPi.git";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    bank-alert-bridge = {
+      url = "github:NPontious/bank-alert-bridge";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, jovian, illogical-flake, home-manager, agenix, nix-flatpak, ha-fordpass, inkypi, inky-combo, ... }: {
+  outputs = { self, nixpkgs, jovian, illogical-flake, home-manager, agenix, nix-flatpak, ha-fordpass, inkypi, inky-combo, bank-alert-bridge, ... }: {
     nixosConfigurations = {
       glacio = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = { inherit illogical-flake agenix nix-flatpak ha-fordpass inkypi inky-combo; };
+        specialArgs = { inherit illogical-flake agenix nix-flatpak ha-fordpass inkypi inky-combo bank-alert-bridge; };
         modules = [
           ./hosts/glacio/hardware-configuration.nix
           ./hosts/glacio/configuration.nix
