@@ -28,7 +28,7 @@
     };
 
     inkypi = {
-      url = "github:npontious/InkyPi";
+      url = "git+https://github.com/npontious/InkyPi.git";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
