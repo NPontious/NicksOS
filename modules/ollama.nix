@@ -43,6 +43,14 @@
               meta = old.meta // { broken = false; };
               doCheck = false;
             });
+            primp = pyPrev.primp.overridePythonAttrs (old: {
+              nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ final.pkg-config ];
+              buildInputs = (old.buildInputs or [ ]) ++ [ final.zstd final.aws-lc ];
+            });
+            chromadb = pyPrev.chromadb.overridePythonAttrs (old: {
+              buildInputs = (old.buildInputs or [ ]) ++ [ final.sqlite final.rust-jemalloc-sys ];
+              doCheck = false;
+            });
             mcp = pyPrev.mcp.overridePythonAttrs (old: {
               postPatch = (old.postPatch or "") + ''
                 cat << 'EOF' >> src/mcp/client/streamable_http.py
