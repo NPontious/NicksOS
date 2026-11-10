@@ -78,7 +78,14 @@
       config = "sudo nano /etc/nixos/hosts/${config.networking.hostName}/configuration.nix";
     };
 
-    programs.fish.enable = true;
+    programs.fish = {
+      enable = true;
+      shellInit = ''
+        if not set -q XDG_RUNTIME_DIR
+          set -gx XDG_RUNTIME_DIR /run/user/(id -u)
+        end
+      '';
+    };
 
     # Pinned: NFS between glacio and desolo compares numeric IDs.
     users.groups.${config.mySystem.mediaGroup}.gid = 983;
