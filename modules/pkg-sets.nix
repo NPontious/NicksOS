@@ -111,7 +111,7 @@ in
           ] ++ cfg.documents.extraPackages))
 
           (lib.mkIf cfg.system_utils.enable (with pkgs; [
-            kdePackages.dolphin kdePackages.konsole kdePackages.filelight libqalculate sshpass
+            kdePackages.dolphin kdePackages.konsole kdePackages.filelight libqalculate sshpass waypipe
           ] ++ cfg.system_utils.extraPackages))
         ];
 
