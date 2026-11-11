@@ -27,11 +27,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1794358797,
-        "narHash": "sha256-kfVAT0RGTFqV+T9oDX8fQire+Wy2981E8M4sWIepcac=",
+        "lastModified": 1794414541,
+        "narHash": "sha256-eQ64zEadmR8IHhyOl2TMAHMQe1zJl0UbDDcDr53jKTo=",
         "ref": "refs/heads/main",
-        "rev": "7ece43e878bccd6cf39356ae55ed5e5e9e8ccf2e",
-        "revCount": 10,
+        "rev": "158b55c04e06be67c4561e2c2e231a49842fbfc7",
+        "revCount": 11,
         "type": "git",
         "url": "github:NPontious/bank-alert-bridge"
       },
