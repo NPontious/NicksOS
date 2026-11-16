@@ -1,5 +1,17 @@
 { config, pkgs, lib, agenix, ... }:
 
+let
+  codex = pkgs.stdenv.mkDerivation {
+    pname = "codex";
+    version = "0.169.0";
+    src = pkgs.fetchurl {
+      url = "https://github.com/openai/codex/releases/download/rust-v0.169.0/codex-x86_64-unknown-linux-musl.tar.gz";
+      hash = "sha256-mvTXUfzhg/rt6mKUN9UlLb9FjusEEwz0+XvoRGIeqYU=";
+    };
+    sourceRoot = ".";
+    installPhase = "install -Dm755 codex-x86_64-unknown-linux-musl $out/bin/codex";
+  };
+in
 {
   options.mySystem = {
     mainUser = lib.mkOption {
@@ -104,7 +116,7 @@
     };
 
     environment.systemPackages = with pkgs; [ 
-      kitty tree git net-tools wget curl antigravity-cli claude-code
+      kitty tree git net-tools wget curl antigravity-cli claude-code codex
       agenix.packages.${pkgs.stdenv.hostPlatform.system}.default
       (writeShellScriptBin "build" ''
         BUILD_HOST_ARGS=()
