@@ -109,7 +109,7 @@
       "OPENAI_URI_BASE" = "http://host.docker.internal:3001/v1";
       "POSTGRES_DB" = "sure_production";
       "POSTGRES_USER" = "sure_user";
-      "RAILS_ASSUME_SSL" = "false";
+      "RAILS_ASSUME_SSL" = "true";
       "RAILS_FORCE_SSL" = "false";
       "REDIS_URL" = "redis://redis:6379/1";
       "SELF_HOSTED" = "true";
