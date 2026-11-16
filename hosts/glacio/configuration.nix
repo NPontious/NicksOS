@@ -149,6 +149,15 @@
   mySystem.illogical.enableShell = true;
   mySystem.illogical.enableDesktop = true;
   mySystem.illogical.scale = 1.5;
+  mySystem.illogical.extraConfigLua = ''
+    hl.monitor({
+        output = "HDMI-A-2",
+        mode = "preferred",
+        position = "auto",
+        scale = 1.5,
+        bitdepth = 10,
+    })
+  '';
 
   security.sudo.extraRules = [
     {
