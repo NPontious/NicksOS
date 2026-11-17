@@ -29,15 +29,15 @@
       "locked": {
         "lastModified": 1794414541,
         "narHash": "sha256-eQ64zEadmR8IHhyOl2TMAHMQe1zJl0UbDDcDr53jKTo=",
-        "ref": "refs/heads/main",
+        "owner": "NPontious",
+        "repo": "bank-alert-bridge",
         "rev": "158b55c04e06be67c4561e2c2e231a49842fbfc7",
-        "revCount": 11,
-        "type": "git",
-        "url": "github:NPontious/bank-alert-bridge"
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "github:NPontious/bank-alert-bridge"
+        "owner": "NPontious",
+        "repo": "bank-alert-bridge",
+        "type": "github"
       }
     },
     "dotfiles": {

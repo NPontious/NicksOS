@@ -35,4 +35,6 @@ in
   "restic-glacio-repository.age".publicKeys = glacio_only;
   "restic-password.age".publicKeys = backup_hosts;
   "restic-server-htpasswd.age".publicKeys = desolo_only;
+  "tradingagents-env.age".publicKeys = glacio_only;
+  "dnsmasq-hosts.age".publicKeys = glacio_only;
 }

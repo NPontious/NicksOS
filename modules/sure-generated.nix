@@ -103,7 +103,6 @@
       "EMBEDDING_DIMENSIONS" = "1024";
       "EMBEDDING_MODEL" = "embed-english-v3.0";
       "EMBEDDING_URI_BASE" = "http://host.docker.internal:3001/v1";
-      "OPENAI_ACCESS_TOKEN" = "[REDACTED]";
       "OPENAI_MODEL" = "auto";
       "OPENAI_REQUEST_TIMEOUT" = "300";
       "OPENAI_URI_BASE" = "http://host.docker.internal:3001/v1";
@@ -172,7 +171,6 @@
       "EMBEDDING_DIMENSIONS" = "1024";
       "EMBEDDING_MODEL" = "embed-english-v3.0";
       "EMBEDDING_URI_BASE" = "http://host.docker.internal:3001/v1";
-      "OPENAI_ACCESS_TOKEN" = "[REDACTED]";
       "OPENAI_MODEL" = "auto";
       "OPENAI_REQUEST_TIMEOUT" = "300";
       "OPENAI_URI_BASE" = "http://host.docker.internal:3001/v1";

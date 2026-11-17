@@ -347,4 +347,14 @@ HTTP_STATUS:%{http_code}" -X POST "http://$IP/api/rotate" 2>&1 || true)
     owner = "bank-alert-bridge";
     group = "bank-alert-bridge";
   };
+
+  age.secrets."tradingagents-env" = {
+    file = ../../secrets/tradingagents-env.age;
+    mode = "0400";
+  };
+
+  age.secrets."dnsmasq-hosts" = {
+    file = ../../secrets/dnsmasq-hosts.age;
+    mode = "0400";
+  };
 }

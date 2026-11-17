@@ -1,7 +1,7 @@
-{ pkgs, lib, ... }:
+{ config, pkgs, lib, ... }:
 
 {
-  # Systemd service for daily Portfolio briefing
+  # Systemd service for daily briefing
   systemd.services.tradingagents-briefing = {
     description = "TradingAgents Daily Briefing";
     path = [
@@ -11,10 +11,10 @@
     ];
     serviceConfig = {
       Type = "oneshot";
-      User = "nicho";
+      User = config.mySystem.mainUser;
       Group = "users";
-      WorkingDirectory = "/home/nicho/TradingAgents";
-      ExecStart = "${pkgs.python3}/bin/python3 /home/nicho/TradingAgents/daily_briefing.py";
+      WorkingDirectory = "/home/${config.mySystem.mainUser}/TradingAgents";
+      ExecStart = "${pkgs.python3}/bin/python3 /home/${config.mySystem.mainUser}/TradingAgents/daily_briefing.py";
       TimeoutSec = 3600; # 60 min maximum for multi-ticker analysis
     };
   };

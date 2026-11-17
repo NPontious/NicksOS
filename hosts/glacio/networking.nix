@@ -83,11 +83,7 @@
         "192.168.100.50,192.168.100.150,12h"
         "192.168.101.50,192.168.101.150,12h"
       ];
-      dhcp-host = [
-        "00:00:00:00:00:01,192.168.101.65,Calendar"
-        # glacio mounts desolo's NFS export by this address
-        "00:00:00:00:00:02,192.168.100.52,desolo"
-      ];
+      dhcp-hostsfile = config.age.secrets."dnsmasq-hosts".path;
       server = [ "8.8.8.8" "1.1.1.1" ];
     };
   };
