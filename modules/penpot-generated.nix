@@ -17,12 +17,12 @@
       "JVM_OPTS" = "-XX:G1PeriodicGCInterval=60000 -XX:MaxHeapFreeRatio=40 -XX:MinHeapFreeRatio=20 -XX:SoftMaxHeapSize=1g";
       "PENPOT_DATABASE_URI" = "postgresql://penpot-postgres/penpot";
       "PENPOT_DATABASE_USERNAME" = "penpot";
-      "PENPOT_FLAGS" = "disable-email-verification enable-smtp enable-prepl-server disable-secure-session-cookies enable-mcp";
+      "PENPOT_FLAGS" = "disable-email-verification enable-smtp enable-prepl-server disable-secure-session-cookies enable-mcp disable-admin-console";
       "PENPOT_HTTP_SERVER_MAX_BODY_SIZE" = "367001600";
       "PENPOT_HTTP_SERVER_MAX_MULTIPART_BODY_SIZE" = "367001600";
       "PENPOT_OBJECTS_STORAGE_BACKEND" = "fs";
       "PENPOT_OBJECTS_STORAGE_FS_DIRECTORY" = "/opt/data/assets";
-      "PENPOT_PUBLIC_URI" = "http://glacio:9001";
+      "PENPOT_PUBLIC_URI" = "https://glacio:9001";
       "PENPOT_REDIS_URI" = "redis://penpot-valkey/0";
       "PENPOT_SMTP_DEFAULT_FROM" = "no-reply@example.com";
       "PENPOT_SMTP_DEFAULT_REPLY_TO" = "no-reply@example.com";
@@ -82,7 +82,7 @@
     image = "penpotapp/exporter:latest";
     environment = {
       "PENPOT_INTERNAL_URI" = "http://penpot-frontend:8080";
-      "PENPOT_PUBLIC_URI" = "http://glacio:9001";
+      "PENPOT_PUBLIC_URI" = "https://glacio:9001";
       "PENPOT_REDIS_URI" = "redis://penpot-valkey/0";
     };
     environmentFiles = [
@@ -126,16 +126,16 @@
   virtualisation.oci-containers.containers."penpot-penpot-frontend" = {
     image = "penpotapp/frontend:latest";
     environment = {
-      "PENPOT_FLAGS" = "disable-email-verification enable-smtp enable-prepl-server disable-secure-session-cookies enable-mcp";
+      "PENPOT_FLAGS" = "disable-email-verification enable-smtp enable-prepl-server disable-secure-session-cookies enable-mcp disable-admin-console";
       "PENPOT_HTTP_SERVER_MAX_BODY_SIZE" = "367001600";
       "PENPOT_HTTP_SERVER_MAX_MULTIPART_BODY_SIZE" = "367001600";
-      "PENPOT_PUBLIC_URI" = "http://glacio:9001";
+      "PENPOT_PUBLIC_URI" = "https://glacio:9001";
     };
     volumes = [
       "penpot_penpot_assets:/opt/data/assets:rw"
     ];
     ports = [
-      "9001:8080/tcp"
+      "127.0.0.1:9002:8080/tcp"
     ];
     dependsOn = [
       "penpot-penpot-backend"
@@ -174,7 +174,7 @@
   virtualisation.oci-containers.containers."penpot-penpot-mailcatch" = {
     image = "sj26/mailcatcher:latest";
     ports = [
-      "1080:1080/tcp"
+      "127.0.0.1:1080:1080/tcp"
     ];
     log-driver = "journald";
     extraOptions = [
