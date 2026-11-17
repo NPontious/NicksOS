@@ -66,8 +66,17 @@
       mode = "3440x1440@144";
       position = "auto";
       scale = 1;
+      #mirror = "DP-5"
     }
   ];
+  mySystem.illogical.extraConfigLua = ''
+    hl.monitor({
+        output = "HDMI-A-2",
+        mode = "preferred",
+        position = "auto",
+        scale = 1,
+    })
+  '';
 
   myAppSets = {
     profile = "gaming";
