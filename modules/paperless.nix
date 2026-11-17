@@ -6,6 +6,9 @@
   config = lib.mkIf config.mySystem.services.paperless.enable {
     services.paperless = {
       enable = true;
+      package = pkgs.paperless-ngx.overrideAttrs (old: {
+        pythonRelaxDeps = (old.pythonRelaxDeps or [ ]) ++ [ "torch" ];
+      });
       address = "0.0.0.0";
       port = 6789;
       passwordFile = config.age.secrets."paperless-password".path;
