@@ -23,11 +23,11 @@
     "dotfiles": {
       "flake": false,
       "locked": {
-        "lastModified": 1794876207,
-        "narHash": "sha256-0rid2c3OPHAOGOaCfjW29NnqYmtAowuXyGoL4f/WKm8=",
+        "lastModified": 1794926572,
+        "narHash": "sha256-UdAP9JlZDSaV+nWAQmkLmGMoLW1azD6CwqAbjTzy5k8=",
         "ref": "refs/heads/main",
-        "rev": "c8ccfefc1c28286ac1aac992997917dfc2a572a4",
-        "revCount": 6433,
+        "rev": "0a5a95259cc3dd8398d39d006fe7eb397275e0a8",
+        "revCount": 6435,
         "submodules": true,
         "type": "git",
         "url": "https://github.com/npontious/dots-hyprland.git"
@@ -101,11 +101,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1794865930,
-        "narHash": "sha256-a3My+u9CEwEFmuGXb3PV9COj7Gd8o28b19TvtDiKPfg=",
+        "lastModified": 1794897420,
+        "narHash": "sha256-hMI9Xg+lxS8kbnxIxL/jPQn688dstoxQAcMEbCb1ax0=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "9d7ba6bef3904a018d38b92f83132eaf01eb8ef3",
+        "rev": "5b76c5b8eec25fdbce4f43309b3ee10584374a26",
         "type": "github"
       },
       "original": {
@@ -125,11 +125,11 @@
         "split-monitor-workspaces": "split-monitor-workspaces"
       },
       "locked": {
-        "lastModified": 1794876291,
-        "narHash": "sha256-obwhg9ouxMPqZuSL1jPmzlFv8L2qTJix/gDmVVmf4zY=",
+        "lastModified": 1794926710,
+        "narHash": "sha256-4vFa4d+GKwHKZkaWrMhP/GgoeVsIGTKuA3Csk6+5SL0=",
         "owner": "npontious",
         "repo": "illogical-flake",
-        "rev": "23690ab68a48e2da4829877518880c6b94c3c559",
+        "rev": "8aa08432272f63fc647bc72165714e8bf26ccba3",
         "type": "github"
       },
       "original": {
@@ -183,11 +183,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1794657605,
-        "narHash": "sha256-o4BFcPJttqT88M0AtXA7vFKS/Y3vIgG9fVkCAcRI3e4=",
+        "lastModified": 1794897950,
+        "narHash": "sha256-6ru/Q3bzgeb7JnESPH7R8apA1LoWzNn7HyoYazro8vw=",
         "owner": "Jovian-Experiments",
         "repo": "Jovian-NixOS",
-        "rev": "cda4687cd0f37d7c1584301b19ad74a4128ed931",
+        "rev": "759dd31526119e31464934f7b0e981693943947d",
         "type": "github"
       },
       "original": {
