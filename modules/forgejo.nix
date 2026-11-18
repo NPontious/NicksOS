@@ -13,6 +13,11 @@
       settings = {
         server = {
           HTTP_PORT = 3030;
+          START_SSH_SERVER = true;
+          SSH_LISTEN_PORT = 2222;
+          SSH_PORT = 2222;
+          SSH_DOMAIN = "glacio";
+          ROOT_URL = "http://glacio:3030/";        
         };
 
         # Single-user mirror: anyone who can sign up can run workflows on the
