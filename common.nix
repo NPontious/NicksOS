@@ -71,6 +71,7 @@ in
     services.openssh = {
       enable = true;
       openFirewall = false;
+      ports = [ 22 2200 ];
       settings = {
         X11Forwarding = true;
       };
@@ -78,6 +79,7 @@ in
 
     programs.ssh.extraConfig = ''
       Host sylva vesania glacio desolo
+        Port 2200
         ForwardX11 yes
         ForwardX11Trusted yes
     '';
@@ -116,6 +118,10 @@ in
       description = config.mySystem.mainUser;
       extraGroups = [ "networkmanager" "wheel" "video" "input" "render" "docker" "gamemode" "lp" "scanner" config.mySystem.mediaGroup ];
       shell = pkgs.fish;
+      openssh.authorizedKeys.keys = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBpd06o2ZlbZh+mQ/h59K1DYHL4RragnqxosiCriL+u/ nicho@vesania"
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBk8imq97dvySm7GsbPpltmN5vLrwm8Q7h7wbm58Ygp9 nicholas.pontious@gmail.com"
+      ];
     };
 
     home-manager.users.${config.mySystem.mainUser} = {
@@ -125,7 +131,7 @@ in
     };
 
     environment.systemPackages = with pkgs; [ 
-      kitty tree git net-tools wget curl antigravity-cli xclip claude-code opencode codex
+      kitty tree git net-tools wget curl antigravity-cli xclip xorg.xauth claude-code opencode codex
       agenix.packages.${pkgs.stdenv.hostPlatform.system}.default
       (writeShellScriptBin "build" ''
         BUILD_HOST_ARGS=()
