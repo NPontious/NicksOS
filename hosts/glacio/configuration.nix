@@ -23,8 +23,6 @@
     ../../modules/penpot-generated.nix
     ../../modules/inkypi.nix
     ../../modules/freellmapi-generated.nix
-    ../../modules/tradingagents-generated.nix
-    ../../modules/tradingagents-briefing.nix
     ../../modules/bank-alert-bridge.nix
   ];
 
@@ -346,11 +344,6 @@ HTTP_STATUS:%{http_code}" -X POST "http://$IP/api/rotate" 2>&1 || true)
     mode = "0400";
     owner = "bank-alert-bridge";
     group = "bank-alert-bridge";
-  };
-
-  age.secrets."tradingagents-env" = {
-    file = ../../secrets/tradingagents-env.age;
-    mode = "0400";
   };
 
   age.secrets."dnsmasq-hosts" = {
