@@ -41,6 +41,10 @@ in
       trusted-users = [ "root" "@wheel" config.mySystem.mainUser ];
     };
 
+    nix.extraOptions = ''
+      !include /home/${config.mySystem.mainUser}/.config/nix/nix.conf
+    '';
+
     nix.gc = {
       automatic = true;
       dates = "weekly";
@@ -131,7 +135,14 @@ in
             ARGS+=("$arg")
           fi
         done
-        exec sudo nixos-rebuild switch --flake "/etc/nixos#${config.networking.hostName}" "''${BUILD_HOST_ARGS[@]}" "''${ARGS[@]}"
+        EXTRA_OPTS=()
+        if [ -f "$HOME/.config/nix/nix.conf" ]; then
+          TOKEN=$(grep -E '^\s*access-tokens\s*=' "$HOME/.config/nix/nix.conf" | sed -E 's/^\s*access-tokens\s*=\s*//')
+          if [ -n "$TOKEN" ]; then
+            EXTRA_OPTS+=(--option access-tokens "$TOKEN")
+          fi
+        fi
+        exec sudo nixos-rebuild switch --flake "/etc/nixos#${config.networking.hostName}" "''${EXTRA_OPTS[@]}" "''${BUILD_HOST_ARGS[@]}" "''${ARGS[@]}"
       '')
     ];
   };
