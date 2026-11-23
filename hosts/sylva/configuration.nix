@@ -89,6 +89,11 @@
 
   
   mySystem.tailscale.enable = true;
+  services.tailscale.useRoutingFeatures = "both";
+  boot.kernel.sysctl = {
+    "net.ipv4.ip_forward" = 1;
+    "net.ipv6.conf.all.forwarding" = 1;
+  };
   mySystem.flatpak.enable = true;
   mySystem.hardware.nvidia.enable = true;
   mySystem.services.ollama.enable = true;

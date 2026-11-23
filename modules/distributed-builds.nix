@@ -27,18 +27,14 @@ in
     }
 
     (lib.mkIf config.mySystem.buildServer.enable {
-      nix.settings = {
-        trusted-users = [ "root" "@wheel" config.mySystem.mainUser ];
-      };
-
       users.users.root.openssh.authorizedKeys.keys = clientHostKeys;
 
       services.openssh.settings.PermitRootLogin = "prohibit-password";
 
       environment.shellAliases = {
-        deploy-glacio = "nixos-rebuild switch --flake '/etc/nixos#glacio' --target-host nicho@glacio --use-remote-sudo";
-        deploy-vesania = "nixos-rebuild switch --flake '/etc/nixos#vesania' --target-host nicho@vesania --use-remote-sudo";
-        deploy-desolo = "nixos-rebuild switch --flake '/etc/nixos#desolo' --target-host nicho@desolo --use-remote-sudo";
+        deploy-glacio = "nixos-rebuild switch --flake '/etc/nixos#glacio' --target-host root@glacio";
+        deploy-vesania = "nixos-rebuild switch --flake '/etc/nixos#vesania' --target-host root@vesania";
+        deploy-desolo = "nixos-rebuild switch --flake '/etc/nixos#desolo' --target-host root@desolo";
       };
     })
 
