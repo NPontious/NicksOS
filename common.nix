@@ -123,7 +123,7 @@ in
     };
 
     environment.systemPackages = with pkgs; [ 
-      kitty tree git net-tools wget curl antigravity-cli claude-code opencode codex
+      kitty tree git net-tools wget curl mosh antigravity-cli claude-code opencode codex
       agenix.packages.${pkgs.stdenv.hostPlatform.system}.default
       (writeShellScriptBin "build" ''
         BUILD_HOST_ARGS=()
